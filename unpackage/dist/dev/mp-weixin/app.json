@@ -10,8 +10,7 @@
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "跑步吧",
     "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8",
-    "navigationStyle": "custom"
+    "backgroundColor": "#F8F8F8"
   },
   "permission": {
     "scope.userLocation": {
@@ -20,5 +19,6 @@
   },
   "usingComponents": {
     "cu-custom": "/colorui/components/cu-custom"
-  }
+  },
+  "sitemapLocation": "sitemap34.json"
 }
