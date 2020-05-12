@@ -9,7 +9,11 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.9.2",
 	"appid": "wx6b49ede83038818e",
+<<<<<<< HEAD
 	"projectname": "running",
+=======
+	"projectname": "Bluetooth",
+>>>>>>> dev
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"condition": {

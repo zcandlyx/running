@@ -12,8 +12,7 @@
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "跑步吧",
     "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8",
-    "navigationStyle": "custom"
+    "backgroundColor": "#F8F8F8"
   },
   "tabBar": {
     "color": "#7A7E83",
@@ -48,5 +47,6 @@
   },
   "usingComponents": {
     "cu-custom": "/colorui/components/cu-custom"
-  }
+  },
+  "sitemapLocation": "sitemap34.json"
 }

@@ -1,1 +1,1 @@
-<view><cu-custom vue-id="6b3d36ea-1" bind:__l="__l" vue-slots="{{['content']}}"><view slot="content">跑步吧</view></cu-custom><navigator url="../map/index">去跑步</navigator></view>
+<view><navigator url="../map/index">去跑步</navigator></view>
