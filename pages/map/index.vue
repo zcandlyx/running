@@ -4,22 +4,35 @@
 			<block slot="content">跑步吧</block>
 		</cu-custom> -->
 		<view class="map-box">
-			<map style="width: 100%; height: 100%;" :polyline="polyline" :circles="circles" :show-location="true" :latitude="latitude"
-			 :longitude="longitude" subkey="3WUBZ-VQF6J-RIYFS-FXCZC-5FFSO-S2FFO"></map>
+			<map style="width: 100%; height: 100%;" :polyline="polyline" :circles="circles" :show-location="true" :latitude="latitude" :longitude="longitude" subkey="3WUBZ-VQF6J-RIYFS-FXCZC-5FFSO-S2FFO"></map>
 		</view>
-
-		<cover-view class="cover_header">
-			<cover-view class="speed"> 速度:{{speed}}m/s </cover-view>
-			<cover-view class="speed"> 公里:{{horizontalAccuracy}} </cover-view>
+		<cover-view class="cover_header text-grey bg-white shadow">
+			<cover-view class="speed" style="white-space:pre-wrap">{{speed}}m/s\n速度</cover-view>
+			<cover-view class="speed" style="white-space:pre-wrap">{{horizontalAccuracy}}\n公里</cover-view>
 		</cover-view>
-
-		<cover-image class="runing_btn" src="https://i.loli.net/2020/05/12/otgSwrXH8LPGEbc.png" mode="" v-show="!isRuning"
-		 @tap="startRuning"></cover-image>
-		<cover-image class="runing_btn" src="https://i.loli.net/2020/05/12/pY95mXg6wjsxISH.png" mode="" v-show="isRuning"
-		 @tap="pauseRuning"></cover-image>
+		<!--隐藏地图按钮 -->
+		<cover-view @tap="hiddenMap" class="hiddenMap">
+			<cover-image class="hiddenMapImg" src="https://i.loli.net/2020/05/12/4PStMukamUgw7pH.png"></cover-image>
+		</cover-view>
+		<!-- 定位按钮 -->
 		<cover-view @tap="getPosition" class="control">
 			<cover-image class="geolocation_control" src="@/static/image/geolocation_control.png"></cover-image>
 		</cover-view>
+		<!-- 数据蒙层 -->
+		<cover-view class="data_mask" :class="dataMaskHidden?animation:''">
+			<cover-view class="dataMaskSub">
+				<cover-view>{{horizontalAccuracy}}</cover-view>
+				<cover-view>公里</cover-view>
+			</cover-view>
+			<cover-view class="dataMaskFooter">
+				<cover-image class="showMap" src="https://i.loli.net/2020/05/12/JjvgAWBXZdh9Ofa.png" @tap="hidden_data_mask"></cover-image>
+				<cover-image class="runing_btn" src="https://i.loli.net/2020/05/12/otgSwrXH8LPGEbc.png" mode="" v-show="!isRuning" @tap="startRuning"></cover-image>
+				<cover-image class="runing_btn" src="https://i.loli.net/2020/05/12/pY95mXg6wjsxISH.png" mode="" v-show="isRuning" @tap="pauseRuning"></cover-image>
+				<cover-image class="showMap" src="https://i.loli.net/2020/05/12/2QC4XYkRG7jT8Hc.png" @tap="setting"></cover-image>
+			</cover-view>
+
+		</cover-view>
+
 		<!-- 是否开始的蒙层 -->
 		<cover-view class="mask animate__animated" :class="num>0?'':animation">
 			<cover-view v-if="beforeStart" @tap="start_before">开始</cover-view>
@@ -54,40 +67,32 @@
 				num: 3,
 				timer: null,
 				beforeStart: true, //用来辨别倒计时
-				animation: 'animate__rotateOut'
+				animation: 'hidden',
+				runState: 3,
+				dataMaskHidden: false
 			};
-		},
-		created() {
-			uni.getSetting({
-				success(res) {
-					console.log(res.authSetting)
-				},
-				fail(res) {
-					console.log(res)
-				}
-			})
-
-			// wx.startLocationUpdateBackground(Object object)
 		},
 		onShow() {
 			self = this
+			this.start_before()
 			/* 判断是否正在运动 */
-			this.beforeStart = !this.$store.getters.runState;
-			const startData = this.$store.getters.runStart
-			console.log("当前位置===>", startData)
-			if (!this.beforeStart) {
-				if (startData["latitude"]) {
-					this.startLatitude = startData.latitude;
-					this.startLongitude = startData.Longitude
-				}
-				console.log("当前位置===>", this.startLatitude)
-				this.animation = 'hidden';
-				this.num = 0;
-				this.isStart = false;
-				this.getPosition()
-				this.monitor()
+			// this.runState = this.$store.getters.runState
+			// this.beforeStart = this.runState === 0 ? true : this.runState === 1 ? true : false;
+			// const startData = this.$store.getters.runStart
+			// console.log("当前运动状态===>", this.beforeStart)
+			// if (!this.beforeStart) {
+			// 	/* 获取之前的数据之后划线和起点 */
+			// 	if (startData["latitude"]) {
+			// 		this.circles[0].longitude = this.startLatitude = startData.latitude;
+			// 		this.circles[0].latitude = this.startLongitude = startData.longitude
+			// 	}
+			// 	console.log("当前位置===>", this.circles[0])
+			// 	this.num = -1;
+			// 	this.isStart = false;
+			// 	this.getPosition()
+			// 	this.monitor()
 
-			}
+			// }
 			/* 判断是否支持实时监测 */
 			const version = wx.getSystemInfoSync().SDKVersion
 
@@ -103,16 +108,16 @@
 
 		},
 
-		// destroyed() {
-		// 	// #ifdef MP-WEIXIN
-		// 	wx.offLocationChange(() => {
-		// 		console.log("取消监听实时地理位置变化事件")
-		// 	})
-		// 	wx.stopLocationUpdate(() => {
-		// 		console.log("关闭监听实时位置变化")
-		// 	})
-		// 	// #endif
-		// },
+		destroyed() {
+			// #ifdef MP-WEIXIN
+			wx.offLocationChange(() => {
+				console.log("取消监听实时地理位置变化事件")
+			})
+			wx.stopLocationUpdate(() => {
+				console.log("关闭监听实时位置变化")
+			})
+			// #endif
+		},
 		methods: {
 			/* 倒计时 */
 			start_before() {
@@ -123,7 +128,7 @@
 						console.log("倒计时结束")
 						clearInterval(this.timer)
 						this.monitor();
-						this.$store.commit("running/SET_RUN_STATE", true)
+						this.$store.commit("running/SET_RUN_STATE", 0)
 					}
 				}, 1000)
 				this.getPosition()
@@ -148,13 +153,27 @@
 				// })
 				// // #endif
 			},
+			setting() {
+				uni.showToast({
+					title: "此功能暂未开放",
+					icon: "none"
+				})
+			},
+			/* 隐藏跑步数据蒙层 */
+			hidden_data_mask() {
+				console.log(222)
+				this.dataMaskHidden = true
+			},
 			/* 跑步开始 */
 			startRuning() {
 				console.log(this.isRuning)
 				this.isRuning = !this.isRuning;
 				this.monitor()
 			},
-
+			/* 隐藏地图 */
+			hiddenMap() {
+				this.dataMaskHidden = false
+			},
 			/* 获取当前位置 */
 			getPosition() {
 
@@ -193,9 +212,11 @@
 						wx.onLocationChange((res) => {
 							console.log("实时监测位置信息", res)
 							const { latitude, longitude, horizontalAccuracy, speed } = res;
-							self.polyline[0].points.push({ latitude, longitude })
-							// _self.horizontalAccuracy = horizontalAccuracy / 500;
-							self.speed = speed
+							self.polyline[0].points.push({ latitude, longitude }) //运动轨迹
+							self.speed = speed.toFixed(2) //跑步速度
+							self.horizontalAccuracy = Number(self.GetDistance(self.startLatitude, self.startLongitude, latitude,
+								longitude)).toFixed(2); //运动距离
+							console.log("horizontalAccuracy", self.horizontalAccuracy)
 						})
 					},
 					fail() {
@@ -250,6 +271,7 @@
 			},
 			/* 计算运动距离,单位为公里 */
 			GetDistance(lat1, lng1, lat2, lng2) {
+				console.log(lat1, lng1, lat2, lng2)
 				var radLat1 = lat1 * Math.PI / 180.0;
 				var radLat2 = lat2 * Math.PI / 180.0;
 				var a = radLat1 - radLat2;
@@ -266,18 +288,23 @@
 </script>
 
 <style lang="scss" scoped>
-	.mask {
+	@mixin mask {
 		position: fixed;
 		top: 0;
 		left: 0;
 		height: 100%;
 		width: 100%;
+		transition: transform 0.5s ease;
+	}
+
+	.mask {
+		@include mask;
 		color: #fff;
 		background-color: $running-theme-color;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		transition: display 1s ease;
+		
 
 		cover-view {
 			width: 150rpx;
@@ -291,8 +318,14 @@
 		}
 	}
 
+	.data_mask {
+		@include mask;
+		color: #fff;
+		background-color: #191970;
+	}
+
 	.hidden {
-		display: none;
+		transform: translate(-100%, -100%);
 	}
 
 	.wrap {
@@ -312,7 +345,7 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			background-color: rgba($color: #000000, $alpha: 0.5);
+
 		}
 
 
@@ -320,22 +353,19 @@
 		.speed {
 			flex: 1;
 			text-align: center;
-			color: #fff;
 			font-size: 48rpx;
-			font-weight: bolder;
 		}
 
-		.runing_btn {
-			position: fixed;
-			bottom: 0;
-			right: 0;
-			left: 0;
-			transform: translate(-50% -50%);
-			width: 120rpx;
-			height: 120rpx;
-			margin: 0 auto 4vh;
-			overflow: hidden;
-		}
+		// .hiddenMap {
+		// 	position: fixed;
+		// 	bottom: 0;
+		// 	right: 0;
+		// 	left: 0;
+		// 	transform: translate(-50% -50%);
+
+		// 	margin: 0 auto 4vh;
+		// 	overflow: hidden;
+		// }
 
 		.control {
 			position: fixed;
@@ -353,6 +383,64 @@
 		.geolocation_control {
 			width: 50rpx;
 			height: 50rpx;
+		}
+
+
+
+		.hiddenMap {
+			background-color: rgba($color: #000000, $alpha:0.8);
+			border-radius: 50%;
+			width: 120rpx;
+			height: 120rpx;
+			position: fixed;
+			bottom: 0;
+			right: 0;
+			left: 0;
+			transform: translate(-50% -50%);
+			margin: 0 auto 4vh;
+			overflow: hidden;
+
+			.hiddenMapImg {
+
+				width: 40rpx;
+				height: 40rpx;
+				margin:40rpx auto;
+			}
+		}
+
+		.dataMaskSub {
+			color: #fff;
+			text-align: center;
+			margin-top: 14vh;
+
+			cover-view:first-child {
+				font-size: 100rpx;
+			}
+
+			cover-view:last-child {
+				font-size: 32rpx;
+			}
+		}
+
+		.dataMaskFooter {
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+			margin-top: 56vh;
+
+			.runing_btn {
+				width: 120rpx;
+				height: 120rpx;
+			}
+
+			.showMap {
+
+				width: 80rpx;
+				height: 80rpx;
+
+
+
+			}
 		}
 
 		// .runing_btn {

@@ -20,7 +20,7 @@
 <script>
 	let self;
 	import defaulImg from "@/static/icon/100.png"
-	import Decode from "@/utils/decode.js"
+	// import Decode from "@/utils/decode.js"
 	import { nowWeather } from "@/api/weather.js"
 	export default {
 		data() {

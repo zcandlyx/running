@@ -18,11 +18,14 @@ export default {
 	},
 	/* 运动状态 */
 	runState(state) {
+		/*0:代表正在运动中 1:代表暂停中 2:代表未开始*/
 		var run_state = state.running.run_state;
-		if (run_state) {
-			return true;
-		} else {
-			return false
+		if (run_state===0) {
+			return 0;
+		} else if(run_state===1) {
+			return 1
+		}else{
+			return 2
 		}
 
 	},
