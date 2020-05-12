@@ -1,4 +1,5 @@
 {
   "navigationBarTitleText": "跑步吧",
+  "navigationStyle": "custom",
   "usingComponents": {}
 }

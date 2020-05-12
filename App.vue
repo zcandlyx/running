@@ -31,6 +31,8 @@
 					// #endif
 				}
 			})
+			
+			// 
 		},
 		onShow: function() {
 			console.log('App Show')
@@ -44,12 +46,13 @@
 <style>
 	@import "colorui/main.css";
 	@import "colorui/icon.css";
-	
+
 	@import "colorui/animation.css";
-	
+
 	page {
 		height: 100%;
 		background-color: #FFFFFF;
 	}
+
 	/*每个页面公共css */
 </style>

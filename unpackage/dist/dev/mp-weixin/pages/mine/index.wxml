@@ -1,1 +1,1 @@
-<view></view>
+<view class="data-v-7300624c"><view class="bg bg-gradual-green  data-v-7300624c"></view><block wx:if="{{info.nickName}}"><view class="info  data-v-7300624c"><image src="{{info.avatarUrl}}" mode class="data-v-7300624c"></image><view class="name data-v-7300624c">{{''+info.nickName+''}}</view></view></block><block wx:else><button class="scope_btn data-v-7300624c" open-type="getUserInfo" data-event-opts="{{[['getuserinfo',[['bindGetUserInfo',['$event']]]]]}}" bindgetuserinfo="__e">授权登录</button></block></view>

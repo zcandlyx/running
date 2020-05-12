@@ -1,1 +1,1 @@
-<view></view>
+<view class="wrap"><cu-custom vue-id="50c80f66-1" bgColor="bg-gradual-green" bind:__l="__l" vue-slots="{{['content']}}"><view class="text-white" slot="content">跑步吧</view></cu-custom><view class="wrap_sub"><view class="weather"><image src="{{weatherImg}}" mode></image><text>{{weather}}</text></view><navigator class="running_btn" url="../map/index" open-type="navigate" hover-class="none"><image src="https://i.loli.net/2020/05/12/GkPOK6VImWtqrFD.png" mode></image><text>跑步</text></navigator></view></view>

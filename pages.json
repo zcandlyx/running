@@ -3,7 +3,8 @@
 		{
 			"path": "pages/home/index",
 			"style": {
-				"navigationBarTitleText": "跑步吧"
+				"navigationBarTitleText": "跑步吧",
+				"navigationStyle": "custom"
 			}
 		}, {
 			"path": "pages/index/index",
@@ -23,7 +24,7 @@
 			"style": {}
 		}, {
 			"path": "pages/running/index",
-			"style": {}
+			"style": { "navigationStyle": "custom" }
 		}
 	],
 	"globalStyle": {
@@ -47,12 +48,12 @@
 			"iconPath": "static/image/home.png",
 			"selectedIconPath": "static/image/home_act.png",
 			"text": "首页"
-		},  {
+		}, {
 			"pagePath": "pages/running/index",
 			"iconPath": "static/image/running.png",
 			"selectedIconPath": "static/image/running_act.png",
 			"text": "运动"
-		} ,{
+		}, {
 			"pagePath": "pages/mine/index",
 			"iconPath": "static/image/mine.png",
 			"selectedIconPath": "static/image/mine_act.png",
