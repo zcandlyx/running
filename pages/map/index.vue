@@ -9,7 +9,7 @@
 		</view>
 		<cover-view class="cover_header bg-white text-grey shadow">
 			<cover-view class="speed" style="white-space:pre-wrap">{{speed}}m/s\n速度</cover-view>
-			<cover-view class="speed" style="white-space:pre-wrap">{{horizontalAccuracy}}\s事件</cover-view>
+			<cover-view class="speed" style="white-space:pre-wrap">{{horizontalAccuracy}}\n公里</cover-view>
 		</cover-view>
 		<!--隐藏地图按钮 -->
 		<!-- :style="{ pointerEvents:mapPointerEvents  }" -->
@@ -34,8 +34,6 @@
 				<cover-view style="padding-top:125rpx; line-height:50rpx; color: #758197;">使用心率设备</cover-view>
 				<cover-view style="line-height:50rpx;color: #758197; ">提升体验，随心而动</cover-view>
 			</cover-view>
-			<cover-view class="tip" style="white-space:pre-wrap">
-				使用提示1.退出请暂停后长按结束键。\n2.直接返回或关闭小程序将无法保存数据。\n3.请确保微信已开启后台活动权限。\n4.长时间运动数据量较大，结束时请耐心等候。</cover-view>
 			<cover-view class="dataMaskFooter">
 				<cover-image class="showMap" src="https://i.loli.net/2020/05/12/JjvgAWBXZdh9Ofa.png" @tap="hidden_data_mask"></cover-image>
 				<cover-image class="runing_btn" src="https://i.loli.net/2020/05/12/otgSwrXH8LPGEbc.png" mode="" v-show="!isRuning"
@@ -44,7 +42,8 @@
 				 @tap="pauseRuning"></cover-image>
 				<cover-image class="showMap" src="https://i.loli.net/2020/05/12/2QC4XYkRG7jT8Hc.png" @tap="setting"></cover-image>
 			</cover-view>
-
+			<cover-view class="tip" style="white-space:pre-wrap">
+				使用提示\n1.退出请暂停后长按结束键。\n2.直接返回或关闭小程序将无法保存数据。\n3.请确保微信已开启后台活动权限。\n4.长时间运动数据量较大，结束时请耐心等候。</cover-view>
 		</cover-view>
 
 		<!-- 是否开始的蒙层 -->
@@ -118,7 +117,9 @@
 					console.log("获取权限")
 				},
 				fail() {
-					console.log("权限获取失败")
+					uni.showToast({
+						title: "请授权,否则无法继续"
+					})
 				}
 			})
 			// this.start_before()
@@ -435,10 +436,14 @@
 		text-align: center;
 
 		.tip {
+			position: absolute;
+			width: 80%;
+			left: 0;
+			right: 0;
+			bottom: 20rpx;
 			padding: 20rpx;
 			border-radius: 20rpx;
-			display: inline-block;
-			margin: 10vh auto 0;
+			margin: 0 auto;
 			color: #fff;
 			text-align: left;
 			line-height: 1.5;
@@ -542,16 +547,17 @@
 			cover-view:last-child {
 				font-size: 32rpx;
 			}
-			
+
 		}
 
 		.speed_distance {
 			display: flex;
 			margin-top: 2vh;
-			.speed{
+
+			.speed {
 				flex: 1;
 				text-align: center;
-				font-size:36rpx;
+				font-size: 36rpx;
 				line-height: 1.2;
 			}
 		}
@@ -559,9 +565,10 @@
 		.dataMaskFooter {
 			justify-content: space-around;
 			align-items: center;
-			margin-top: 4vh;
+			width: 100%;
 			display: flex;
-
+			position: absolute;
+			bottom:311rpx ;
 			.runing_btn {
 				width: 120rpx;
 				height: 120rpx;

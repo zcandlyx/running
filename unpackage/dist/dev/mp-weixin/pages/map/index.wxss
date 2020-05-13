@@ -72,10 +72,14 @@
   text-align: center;
 }
 .data_mask .tip.data-v-670924cb {
+  position: absolute;
+  width: 80%;
+  left: 0;
+  right: 0;
+  bottom: 20rpx;
   padding: 20rpx;
   border-radius: 20rpx;
-  display: inline-block;
-  margin: 10vh auto 0;
+  margin: 0 auto;
   color: #fff;
   text-align: left;
   line-height: 1.5;
@@ -183,10 +187,12 @@
   -webkit-box-align: center;
   -webkit-align-items: center;
           align-items: center;
-  margin-top: 4vh;
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
+  position: absolute;
+  bottom: 311rpx;
 }
 .wrap .dataMaskFooter .runing_btn.data-v-670924cb {
   width: 120rpx;

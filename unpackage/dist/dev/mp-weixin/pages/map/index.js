@@ -189,7 +189,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 // import moment from "@/utils/moment.js"
 // console.log(moment.format())
@@ -250,7 +249,9 @@ var slef;var _default =
         console.log("获取权限");
       },
       fail: function fail() {
-        console.log("权限获取失败");
+        uni.showToast({
+          title: "请授权,否则无法继续" });
+
       } });
 
     // this.start_before()
