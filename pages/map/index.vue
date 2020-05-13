@@ -32,6 +32,8 @@
 </template>
 
 <script>
+	// import moment from "@/utils/moment.js"
+	// console.log(moment.format())
 	let slef;
 	export default {
 		data() {
@@ -51,10 +53,15 @@
 				speed: "0",
 				horizontalAccuracy: "0.00", //跑步长度
 				isRuning: true,
-				num: 3,
-				timer: null,
-				beforeStart: true, //用来辨别倒计时
-				animation: 'animate__rotateOut'
+				num: 3, //
+				timer: null, //开始倒计时
+				beforeStart: true, //开始倒计时标志
+				animation: 'animate__rotateOut',
+				n_sec: 0, //秒
+				n_min: 0, //分
+				n_hour: 0, //时
+				cutDownTimer: null, //表秒
+				time: "00: 00: 00" //计时
 			};
 		},
 		created() {
@@ -66,53 +73,54 @@
 					console.log(res)
 				}
 			})
-
 			// wx.startLocationUpdateBackground(Object object)
 		},
 		onShow() {
 			self = this
 			/* 判断是否正在运动 */
-			this.beforeStart = !this.$store.getters.runState;
-			const startData = this.$store.getters.runStart
-			console.log("当前位置===>", startData)
-			if (!this.beforeStart) {
-				if (startData["latitude"]) {
-					this.startLatitude = startData.latitude;
-					this.startLongitude = startData.Longitude
-				}
-				console.log("当前位置===>", this.startLatitude)
-				this.animation = 'hidden';
-				this.num = 0;
-				this.isStart = false;
-				this.getPosition()
-				this.monitor()
+			// this.beforeStart = !this.$store.getters.runState;
+			// const startData = this.$store.getters.runStart
+			// console.log("当前位置===>", startData)
+			// if (!this.beforeStart) {
+			// 	if (startData["latitude"]) {
+			// 		this.startLatitude = startData.latitude;
+			// 		this.startLongitude = startData.Longitude
+			// 	}
+			// 	console.log("当前位置===>", this.startLatitude)
+			// 	this.animation = 'hidden';
+			// 	this.num = 0;
+			// 	this.isStart = false;
+			// 	this.getPosition()
+			// 	this.monitor()
+			// }
 
-			}
-			/* 判断是否支持实时监测 */
+			/*判断版本是否支持实时监测功能 */
 			const version = wx.getSystemInfoSync().SDKVersion
-
 			if (this.compareVersion(version, '1.1.0') >= 0) {
 				wx.openBluetoothAdapter()
 			} else {
 				// 如果希望用户在最新版本的客户端上体验您的小程序，可以这样子提示
+				// #ifdef MP-WEIXIN
 				wx.showModal({
 					title: '提示',
 					content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
 				})
+				// #endif
 			}
 
 		},
 
-		// destroyed() {
-		// 	// #ifdef MP-WEIXIN
-		// 	wx.offLocationChange(() => {
-		// 		console.log("取消监听实时地理位置变化事件")
-		// 	})
-		// 	wx.stopLocationUpdate(() => {
-		// 		console.log("关闭监听实时位置变化")
-		// 	})
-		// 	// #endif
-		// },
+		destroyed() {
+			// #ifdef MP-WEIXIN
+			clearInterval(this.timer)
+			wx.offLocationChange(() => {
+				console.log("取消监听实时地理位置变化事件")
+			})
+			wx.stopLocationUpdate(() => {
+				console.log("关闭监听实时位置变化")
+			})
+			// #endif
+		},
 		methods: {
 			/* 倒计时 */
 			start_before() {
@@ -123,7 +131,7 @@
 						console.log("倒计时结束")
 						clearInterval(this.timer)
 						this.monitor();
-						this.$store.commit("running/SET_RUN_STATE", true)
+						this.coutDown()
 					}
 				}, 1000)
 				this.getPosition()
@@ -153,6 +161,7 @@
 				console.log(this.isRuning)
 				this.isRuning = !this.isRuning;
 				this.monitor()
+				this.coutDown()
 			},
 
 			/* 获取当前位置 */
@@ -207,6 +216,8 @@
 			/* 暂停跑步 */
 			pauseRuning() {
 				this.isRuning = !this.isRuning;
+				/* 暂停时清除秒表*/
+				clearInterval(this.cutDownTimer)
 
 				// #ifdef MP-WEIXIN
 				wx.offLocationChange(() => {
@@ -259,6 +270,38 @@
 				s = s * 6378.137; // EARTH_RADIUS;
 				s = Math.round(s * 10000) / 10000;
 				return s;
+			},
+			/* 秒表 */
+			coutDown() {
+				this.cutDownTimer = setInterval(function() {
+					console.log("self",self.n_sec)
+					let str_sec = self.n_sec;
+					let str_min = self.n_min;
+					let str_hour = self.n_hour;
+					if (self.n_sec < 10) {
+						str_sec = "0" + self.n_sec;
+					}
+					if (self.n_min < 10) {
+						str_min = "0" + self.n_min;
+					}
+
+					if (self.n_hour < 10) {
+						str_hour = "0" + self.n_hour;
+					}
+
+					let time = str_hour + ":" + str_min + ":" + str_sec;
+					self.time = time
+					self.n_sec++;
+					if (self.n_sec > 59) {
+						self.n_sec = 0;
+						self.n_min++;
+					}
+					if (self.n_min > 59) {
+						self.n_sec = 0;
+						self.n_hour++;
+					}
+					console.log(time)
+				}, 1000);
 			}
 		}
 

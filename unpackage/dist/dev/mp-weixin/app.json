@@ -5,7 +5,8 @@
     "pages/chart/index",
     "pages/map/index",
     "pages/mine/index",
-    "pages/running/index"
+    "pages/running/index",
+    "pages/mine/useTip/index"
   ],
   "subPackages": [],
   "window": {
@@ -48,6 +49,5 @@
   "usingComponents": {
     "cu-custom": "/colorui/components/cu-custom"
   },
-  "sitemapLocation": "sitemap11.json",
-  "requiredBackgroundModes": ["location"]
+  "sitemapLocation": "sitemap56.json"
 }

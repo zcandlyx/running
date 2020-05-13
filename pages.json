@@ -21,12 +21,16 @@
 
 		, {
 			"path": "pages/mine/index",
-			"style": {}
+			"style": { "navigationStyle": "custom" }
 		}, {
 			"path": "pages/running/index",
 			"style": { "navigationStyle": "custom" }
 		}
-	],
+	    ,{
+            "path" : "pages/mine/useTip/index",
+            "style" : {}
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "跑步吧",

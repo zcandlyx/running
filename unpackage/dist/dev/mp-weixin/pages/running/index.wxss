@@ -79,7 +79,7 @@
   margin: 72vh auto 0;
   color: #fff;
   border-radius: 50%;
-  background-color: #01BD03;
+  background-color: #8dc63f;
 }
 .wrap .running_btn image {
   width: 46rpx;
