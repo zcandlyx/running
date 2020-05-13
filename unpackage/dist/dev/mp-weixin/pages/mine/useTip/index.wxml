@@ -1,8 +1,8 @@
-<view class="container data-v-03a5353f"><text class="data-v-03a5353f"><text style="color:#ffffff;font-weight:bold;" class="data-v-03a5353f">常见问题:</text>1.使用跑步功能时，请开启定位功能授权"<text style="color:#ffffff;" class="data-v-03a5353f">使用时和离开后</text>"。
+<view class="container data-v-abdc4ffc"><text class="data-v-abdc4ffc"><text style="color:#ffffff;font-weight:bold;" class="data-v-abdc4ffc">常见问题:</text>1.使用跑步功能时，请开启定位功能授权"<text style="color:#ffffff;" class="data-v-abdc4ffc">使用时和离开后</text>"。
     2.查看微信运动数据时请开启微信数据使用授权。
-    3.使用后台定位功能进行跑步时，请确保微信版本升级至<text style="color:#ffffff;" class="data-v-03a5353f">7.0.6</text>版本及以后。否则无法开启权限。
+    3.使用后台定位功能进行跑步时，请确保微信版本升级至<text style="color:#ffffff;" class="data-v-abdc4ffc">7.0.6</text>版本及以后。否则无法开启权限。
     4.使用跑步功能时，请勿将微信和小程序放入后台运行。
-    5.跑步结束后请勿直接关闭微信和小程序，请按左上角"<text style="color:#ffffff;" class="data-v-03a5353f">X</text>"键按流程退出，否则无法保存数据。<text style="color:#ffffff;font-weight:bold;" class="data-v-03a5353f">Tips:</text>*右上角开启浮窗模式可以使小程序运行更稳定，并方便随时进入。
+    5.跑步结束后请勿直接关闭微信和小程序，请按左上角"<text style="color:#ffffff;" class="data-v-abdc4ffc">X</text>"键按流程退出，否则无法保存数据。<text style="color:#ffffff;font-weight:bold;" class="data-v-abdc4ffc">Tips:</text>*右上角开启浮窗模式可以使小程序运行更稳定，并方便随时进入。
     *可以小程序保存为我的小程序，不容易丢失。
     *小程序使用流量定位比使用wifi定位更精确哦。
     *如页面或者小程序数据未加载或者网速慢加载耗时久，退出重进即可。</text></view>

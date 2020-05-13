@@ -87,7 +87,7 @@
 				n_min: 0, //分
 				n_hour: 0, //时
 				cutDownTimer: null, //表秒
-				time: "00: 00: 00", //计时
+				time: "00:00:00", //计时
 				dataMaskHidden: false,
 				pointerEvents: 'auto',
 				mapPointerEvents: "none"
@@ -175,10 +175,9 @@
 			}
 
 		},
-
-		destroyed() {
+		beforeDestroy() {
 			// #ifdef MP-WEIXIN
-			clearInterval(this.timer)
+			clearInterval(this.cutDownTimer)
 			wx.offLocationChange(() => {
 				console.log("取消监听实时地理位置变化事件")
 			})
@@ -194,7 +193,7 @@
 				this.timer = setInterval(() => {
 					this.num--;
 					if (this.num === 0) {
-						console.log("倒计时结束")
+						
 						clearInterval(this.timer)
 						this.monitor();
 						this.coutDown()
@@ -390,7 +389,7 @@
 						self.n_sec = 0;
 						self.n_hour++;
 					}
-
+					console.log(self.time)
 				}, 1000);
 			}
 		}
