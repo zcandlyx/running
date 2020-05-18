@@ -31,7 +31,7 @@
 				<cover-view class="speed" style="white-space:pre-wrap">{{time}}\n时长</cover-view>
 			</cover-view>
 			<cover-view class="equipment">
-				<cover-view style="padding-top:125rpx; line-height:50rpx; color: #758197;">使用心率设备</cover-view>
+				<cover-view style="padding-top:10vh; line-height:50rpx; color: #758197;">使用心率设备</cover-view>
 				<cover-view style="line-height:50rpx;color: #758197; ">提升体验，随心而动</cover-view>
 			</cover-view>
 			<cover-view class="dataMaskFooter">
@@ -538,8 +538,7 @@
 		.dataMaskSub {
 			color: #fff;
 			text-align: center;
-			margin-top: 14vh;
-
+			margin-top: 5vh;
 			cover-view:first-child {
 				font-size: 100rpx;
 			}
@@ -568,7 +567,7 @@
 			width: 100%;
 			display: flex;
 			position: absolute;
-			bottom:311rpx ;
+			bottom:34vh;
 			.runing_btn {
 				width: 120rpx;
 				height: 120rpx;
