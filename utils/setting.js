@@ -1,4 +1,4 @@
-let host = "https://free-api.heweather.net/"
+let host = ""
 // let host = "https://tianqi.quanquankeji.cn"
 
 

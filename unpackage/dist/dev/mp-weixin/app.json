@@ -6,7 +6,8 @@
     "pages/map/index",
     "pages/mine/index",
     "pages/running/index",
-    "pages/mine/useTip/index"
+    "pages/mine/useTip/index",
+    "pages/mine/step/index"
   ],
   "subPackages": [],
   "window": {
@@ -48,10 +49,5 @@
   },
   "usingComponents": {
     "cu-custom": "/colorui/components/cu-custom"
-  },
-<<<<<<< HEAD
-  "sitemapLocation": "sitemap91.json"
-=======
-  "sitemapLocation": "sitemap7.json"
->>>>>>> ad24c2f04dab15e8becd6a2cd34d7e6f673e0b8f
+  }
 }

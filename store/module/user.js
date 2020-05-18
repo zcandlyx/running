@@ -14,6 +14,12 @@ const mutations = {
 	REMOVE_USER_INFO(state) {
 		state.userInfo = {};
 		uni.removeStorageSync("userInfo");
+	},
+	SET_SESSION_KEY(state,data){
+		state.sessionKey = data;
+		// 2.存入localstorage
+		uni.setStorageSync("sessionKey", data);
+		console.log((state.sessionKey))
 	}
 	/* SET_WEIXIN_INFO(state, data) {
 		// 1.存入vuex

@@ -219,7 +219,7 @@ var slef;var _default =
       n_min: 0, //分
       n_hour: 0, //时
       cutDownTimer: null, //表秒
-      time: "00:00:00", //计时
+      time: "00: 00: 00", //计时
       dataMaskHidden: false,
       pointerEvents: 'auto',
       mapPointerEvents: "none"
@@ -307,9 +307,10 @@ var slef;var _default =
     }
 
   },
-  beforeDestroy: function beforeDestroy() {
 
-    clearInterval(this.cutDownTimer);
+  destroyed: function destroyed() {
+
+    clearInterval(this.timer);
     wx.offLocationChange(function () {
       console.log("取消监听实时地理位置变化事件");
     });
@@ -325,7 +326,7 @@ var slef;var _default =
       this.timer = setInterval(function () {
         _this.num--;
         if (_this.num === 0) {
-
+          console.log("倒计时结束");
           clearInterval(_this.timer);
           _this.monitor();
           _this.coutDown();
@@ -521,7 +522,7 @@ var slef;var _default =
           self.n_sec = 0;
           self.n_hour++;
         }
-        console.log(self.time);
+
       }, 1000);
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

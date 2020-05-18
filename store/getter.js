@@ -20,11 +20,11 @@ export default {
 	runState(state) {
 		/*0:代表正在运动中 1:代表暂停中 2:代表未开始*/
 		var run_state = state.running.run_state;
-		if (run_state===0) {
+		if (run_state === 0) {
 			return 0;
-		} else if(run_state===1) {
+		} else if (run_state === 1) {
 			return 1
-		}else{
+		} else {
 			return 2
 		}
 
@@ -38,6 +38,17 @@ export default {
 			return {}
 
 		}
+	},
+	getSessionKey(state) {
+		let sessionKey = state.user.sessionKey;
+		if (sessionKey) {
+			return sessionKey;
+		}
+		sessionKey = uni.getStorageSync('sessionKey');
+		if (sessionKey) {
+			return sessionKey;
+		}
+		return ""
 	}
 	/* 	// 获取微信用户信息
 		wxInfo(state) {

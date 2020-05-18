@@ -31,7 +31,7 @@
 				<cover-view class="speed" style="white-space:pre-wrap">{{time}}\n时长</cover-view>
 			</cover-view>
 			<cover-view class="equipment">
-				<cover-view style="padding-top:10vh; line-height:50rpx; color: #758197;">使用心率设备</cover-view>
+				<cover-view style="padding-top:125rpx; line-height:50rpx; color: #758197;">使用心率设备</cover-view>
 				<cover-view style="line-height:50rpx;color: #758197; ">提升体验，随心而动</cover-view>
 			</cover-view>
 			<cover-view class="dataMaskFooter">
@@ -87,7 +87,7 @@
 				n_min: 0, //分
 				n_hour: 0, //时
 				cutDownTimer: null, //表秒
-				time: "00:00:00", //计时
+				time: "00: 00: 00", //计时
 				dataMaskHidden: false,
 				pointerEvents: 'auto',
 				mapPointerEvents: "none"
@@ -175,9 +175,10 @@
 			}
 
 		},
-		beforeDestroy() {
+
+		destroyed() {
 			// #ifdef MP-WEIXIN
-			clearInterval(this.cutDownTimer)
+			clearInterval(this.timer)
 			wx.offLocationChange(() => {
 				console.log("取消监听实时地理位置变化事件")
 			})
@@ -193,7 +194,7 @@
 				this.timer = setInterval(() => {
 					this.num--;
 					if (this.num === 0) {
-						
+						console.log("倒计时结束")
 						clearInterval(this.timer)
 						this.monitor();
 						this.coutDown()
@@ -389,7 +390,7 @@
 						self.n_sec = 0;
 						self.n_hour++;
 					}
-					console.log(self.time)
+
 				}, 1000);
 			}
 		}
@@ -527,7 +528,6 @@
 			overflow: hidden;
 
 			.hiddenMapImg {
-
 				width: 40rpx;
 				height: 40rpx;
 				margin: 40rpx auto;
@@ -537,7 +537,7 @@
 		.dataMaskSub {
 			color: #fff;
 			text-align: center;
-			margin-top: 5vh;
+			margin-top: 100rpx;
 			cover-view:first-child {
 				font-size: 100rpx;
 			}
@@ -566,7 +566,7 @@
 			width: 100%;
 			display: flex;
 			position: absolute;
-			bottom:34vh;
+			bottom:311rpx ;
 			.runing_btn {
 				width: 120rpx;
 				height: 120rpx;

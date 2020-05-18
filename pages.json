@@ -25,12 +25,14 @@
 		}, {
 			"path": "pages/running/index",
 			"style": { "navigationStyle": "custom" }
+		}, {
+			"path": "pages/mine/useTip/index",
+			"style": {}
+		}, {
+			"path": "pages/mine/step/index",
+			"style": { "navigationBarTitleText": "运动步数" }
 		}
-	    ,{
-            "path" : "pages/mine/useTip/index",
-            "style" : {}
-        }
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "跑步吧",

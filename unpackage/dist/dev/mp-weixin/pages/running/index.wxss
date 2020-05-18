@@ -36,53 +36,53 @@
   background: url("https://i.loli.net/2020/05/12/BFdacPpOGu4Atl7.jpg") no-repeat center/100% 100%;
 }
 .wrap .wrap_sub {
-    -webkit-box-flex: 1;
-    -webkit-flex: 1;
-            flex: 1;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
 }
 .wrap .weather {
-    position: fixed;
-    padding: 10rpx 20rpx;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-            align-items: center;
-    border-radius: 60rpx;
-    background-color: #fff;
-    margin: 20rpx 20rpx 0;
+  position: fixed;
+  padding: 10rpx 20rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  border-radius: 60rpx;
+  background-color: #fff;
+  margin: 20rpx 20rpx 0;
 }
 .wrap .weather image {
-      width: 50rpx;
-      height: 50rpx;
+  width: 50rpx;
+  height: 50rpx;
 }
 .wrap .weather text {
-      font-size: 24rpx;
+  font-size: 24rpx;
 }
 .wrap .running_btn {
-    width: 150rpx;
-    height: 150rpx;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-            justify-content: center;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-            align-items: center;
-    margin: 72vh auto 0;
-    color: #fff;
-    border-radius: 50%;
-    background-color: #8dc63f;
+  width: 150rpx;
+  height: 150rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  margin: 72vh auto 0;
+  color: #fff;
+  border-radius: 50%;
+  background-color: #8dc63f;
 }
 .wrap .running_btn image {
-      width: 46rpx;
-      height: 46rpx;
+  width: 46rpx;
+  height: 46rpx;
 }
 

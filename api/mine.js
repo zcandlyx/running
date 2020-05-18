@@ -1,12 +1,12 @@
 import http from "@/utils/request.js"
 
-function nowWeather(data) {
+function getOpenID(data) {
 	return http({
 		method: "GET",
 		data: data,
-		url: "https://free-api.heweather.net/s6/weather/now"
+		url: "http://39.107.233.206:8000/login"
 	})
 }
 export {
-	nowWeather
+	getOpenID
 }

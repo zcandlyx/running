@@ -42,7 +42,7 @@ function http(config) {
 
 		// 修改url localhost/api/xxx..x. 后台cors处理 
 		console.log(host)
-		setting.url = host + setting.url;
+		// setting.url = host + setting.url;
 
 		// 发送请求 
 
