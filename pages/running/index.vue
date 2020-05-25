@@ -9,7 +9,7 @@
 				<text>{{weather}}</text>
 			</view>
 			<view class="step">
-				今日步数{{currentStep}}
+				今日步数:{{currentStep}}
 			</view>
 			<navigator url="../map/index" class="running_btn" open-type="navigate" hover-class="none">
 				<image src="https://i.loli.net/2020/05/12/GkPOK6VImWtqrFD.png" mode=""></image>
@@ -98,7 +98,7 @@
 			position: fixed;
 			right:-30rpx;
 			padding: 20rpx 40rpx 20rpx 20rpx;
-			margin-top: 20rpx;
+			margin-top: 120rpx;
 			text-align: left;
 			border-radius: 60rpx;
 			background-color: #fff;
@@ -108,10 +108,10 @@
 			position: fixed;
 			display: flex;
 			align-items: center;
-			padding: 10rpx 20rpx;
+			padding: 10rpx;
 			border-radius: 60rpx;
 			background-color: #fff;
-			margin-top: 20rpx;
+			margin-top:20rpx;
 			left: 20rpx;
 			image {
 				width: 50rpx;

@@ -44,7 +44,7 @@
   position: fixed;
   right: -30rpx;
   padding: 20rpx 40rpx 20rpx 20rpx;
-  margin-top: 20rpx;
+  margin-top: 120rpx;
   text-align: left;
   border-radius: 60rpx;
   background-color: #fff;
@@ -57,7 +57,7 @@
   -webkit-box-align: center;
   -webkit-align-items: center;
           align-items: center;
-  padding: 10rpx 20rpx;
+  padding: 10rpx;
   border-radius: 60rpx;
   background-color: #fff;
   margin-top: 20rpx;

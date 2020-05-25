@@ -50,6 +50,5 @@
   "usingComponents": {
     "cu-custom": "/colorui/components/cu-custom"
   },
-  "sitemapLocation": "sitemap18.json",
-  "requiredBackgroundModes":["location"]
+  "sitemapLocation": "sitemap88.json"
 }
