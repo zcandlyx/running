@@ -18,10 +18,11 @@
 <script>
 	import Decode from "@/utils/decode.js"
 	import uCharts from '@/js_sdk/u-charts/u-charts/u-charts.js';
-	var canvaColumn = null;
-	var canvaColumnWeek = null;
+
 	import { getOpenID } from "@/api/mine.js"
 	let self;
+	let canvaColumnWeek = {};
+	let canvaColumn = {};
 	export default {
 		data() {
 			return {
@@ -29,6 +30,7 @@
 				cHeight: '',
 				pixelRatio: 1,
 				serverData: '',
+
 				// chartData: {
 				// 	categories: [],
 				// 	series: [{
@@ -36,19 +38,19 @@
 				// 		data: [10,{ "value": 40, "color": "#facc14" }]
 				// 	}]
 				// }
-				"chartData": {
-					"categories": [],
-					"series": [{
-						"name": "最近一月运动步数",
-						"data": [{ "value": 20, "color": "#f04864" }]
+				chartData: {
+					categories: [],
+					series: [{
+						name: "最近一月运动步数",
+						data: []
 					}],
 					type: "column"
 				},
-				"chartDataWeek": {
-					"categories": [],
-					"series": [{
-						"name": "最近一周运动步数",
-						"data": [{ "value": 20, "color": "#f04864" }]
+				chartDataWeek: {
+					categories: [],
+					series: [{
+						name: "最近一周运动步数",
+						data: []
 					}],
 					type: "column"
 				}
@@ -56,23 +58,30 @@
 		},
 		methods: {
 			init() {
+
+				const sessionKey = uni.getStorageSync("sessionKey");
+				// #ifdef MP-WEIXIN
 				wx.getWeRunData({
 					success(res) {
-					
-						const sessionKey = self.$store.getters.getSessionKey;
+						console.log(res)
+						// let ress = JSON.parse(res)
 						console.log(sessionKey)
+						// return
 						const decode = new Decode("wx6b49ede83038818e", sessionKey);
 						const step = decode.decryptData(res.encryptedData, res.iv)
 						console.log(step)
 						step.stepInfoList.map((item, index) => {
 							let date = new Date()
+
 							date.setTime(item.timestamp * 1000);
+							console.log(date.getDate())
 							if (index % 5 === 0) {
 								self.chartData.categories.push(date.getMonth() + 1 + "-" + date.getDate())
 								self.chartData.series[0].data.push(item.step)
 							}
 							if (index > 23) {
 								self.chartDataWeek.categories.push(date.getMonth() + 1 + "-" + date.getDate())
+								console.log(date.getDate(), item.step)
 								self.chartDataWeek.series[0].data.push(item.step)
 							}
 							// self.chartData.categories[Math.floor(index / 5)].push(date.getMonth() + 1 + "-" + date.getDate())
@@ -85,6 +94,7 @@
 						console.log(res)
 					}
 				})
+				// #endif
 
 
 				// wx.login({
@@ -165,10 +175,10 @@
 					});
 				}
 
-				console.log(canvaColumn)
+				// console.log(canvaColumn)
 			},
 			touchColumn(e) {
-				
+
 				canvaColumn.showToolTip(e, {
 					format: function(item, category) {
 						if (typeof item.data === 'object') {
@@ -180,7 +190,7 @@
 				});
 			},
 			touchColumnWeek(e) {
-			
+
 				canvaColumnWeek.showToolTip(e, {
 					format: function(item, category) {
 						if (typeof item.data === 'object') {
@@ -192,10 +202,8 @@
 				});
 			},
 		},
-		created() {
-
-		},
-		onLoad() {
+		created() {},
+		onShow() {
 			self = this
 			//#ifdef MP-ALIPAY
 			uni.getSystemInfo({

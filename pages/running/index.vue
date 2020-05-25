@@ -8,7 +8,9 @@
 				<image :src="weatherImg" mode=""></image>
 				<text>{{weather}}</text>
 			</view>
-
+			<view class="step">
+				今日步数{{currentStep}}
+			</view>
 			<navigator url="../map/index" class="running_btn" open-type="navigate" hover-class="none">
 				<image src="https://i.loli.net/2020/05/12/GkPOK6VImWtqrFD.png" mode=""></image>
 				<text>跑步</text>
@@ -19,6 +21,7 @@
 
 <script>
 	let self;
+	import Decode from "@/utils/decode.js"
 	import defaulImg from "@/static/icon/100.png"
 	// import Decode from "@/utils/decode.js"
 	import { nowWeather } from "@/api/weather.js"
@@ -26,11 +29,13 @@
 		data() {
 			return {
 				weather: "36.5℃  晴",
-				weatherImg: defaulImg
+				weatherImg: defaulImg,
+				currentStep: 0
 			};
 		},
 		created() {
-			this.getWeather()
+			this.getWeather(),
+				this.getStep()
 		},
 		methods: {
 			getWeather() {
@@ -55,18 +60,21 @@
 			},
 			getStep() {
 				// #ifdef MP-WEIXIN
-				wx.login({
+				const sessionKey = uni.getStorageSync("sessionKey");
+				wx.getWeRunData({
 					success(res) {
-						wx.getWeRunData({
-							success(res) {
-								// 拿 encryptedData 到开发者后台解密开放数据
-								const encryptedData = res.encryptedData
-								// 或拿 cloudID 通过云调用直接获取开放数据
-								const iv = res.iv
-								// console.log(Decode.decryptData(encryptedData, iv))
-							}
-						})
 
+						// let ress = JSON.parse(res)
+						console.log(sessionKey)
+						// return
+						const decode = new Decode("wx6b49ede83038818e", sessionKey);
+						const step = decode.decryptData(res.encryptedData, res.iv)
+
+						let arr = step.stepInfoList.slice(-1)
+						self.currentStep = arr[0].step
+					},
+					fail(res) {
+						console.log(res)
 					}
 				})
 				// #endif
@@ -86,15 +94,25 @@
 			flex: 1;
 		}
 
-		.weather {
+		.step {
 			position: fixed;
-			padding: 10rpx 20rpx;
-			display: flex;
-			align-items: center;
+			right:-30rpx;
+			padding: 20rpx 40rpx 20rpx 20rpx;
+			margin-top: 20rpx;
+			text-align: left;
 			border-radius: 60rpx;
 			background-color: #fff;
-			margin: 20rpx 20rpx 0;
+		}
 
+		.weather {
+			position: fixed;
+			display: flex;
+			align-items: center;
+			padding: 10rpx 20rpx;
+			border-radius: 60rpx;
+			background-color: #fff;
+			margin-top: 20rpx;
+			left: 20rpx;
 			image {
 				width: 50rpx;
 				height: 50rpx;

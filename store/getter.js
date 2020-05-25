@@ -40,12 +40,14 @@ export default {
 		}
 	},
 	getSessionKey(state) {
-		let sessionKey = state.user.sessionKey;
+		// let sessionKey = state.user.sessionKey;
+		// if (sessionKey) {
+		// 	return sessionKey;
+		// }
+		let sessionKey = uni.getStorageSync('sessionKey');
+		console.log(Boolean(sessionKey))
 		if (sessionKey) {
-			return sessionKey;
-		}
-		sessionKey = uni.getStorageSync('sessionKey');
-		if (sessionKey) {
+			console.log("sessionKey", sessionKey)
 			return sessionKey;
 		}
 		return ""

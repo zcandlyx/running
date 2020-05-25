@@ -1,5 +1,7 @@
 <script>
 	import Vue from 'vue'
+	import { getOpenID } from "@/api/mine.js"
+	let self;
 	export default {
 		onLaunch: function() {
 			console.log('App Launch')
@@ -31,14 +33,59 @@
 					// #endif
 				}
 			})
-			
+
 			// 
 		},
 		onShow: function() {
 			console.log('App Show')
+			self = this
+			const sessionKey = this.$store.getters.getSessionKey;
+			if (!sessionKey) {
+				this.init()
+				return
+			}
+			uni.checkSession({
+				success() {
+					console.log("未过期")
+					//session_key 未过期，并且在本生命周期一直有效
+				},
+				fail() {
+					console.log("已经过期")
+					self.init()
+					// session_key 已经失效，需要重新执行登录流程
+					//重新登录
+				}
+			})
 		},
 		onHide: function() {
 			console.log('App Hide')
+		},
+		methods: {
+			init() {
+				uni.getProvider({
+					service: 'oauth',
+					success: function(res) {
+						console.log(res.provider)
+						if (~res.provider.indexOf('weixin')) {
+							uni.login({
+								success(res) {
+									if (res.code) {
+										//发起网络请求
+										getOpenID({ code: res.code }).then(res => {
+											console.log("mine===>", res)
+											self.$store.commit("user/SET_SESSION_KEY", res.session_key)
+										}).catch(res => {
+											console.log(res)
+										})
+									} else {
+										console.log('登录失败！' + res.errMsg)
+									}
+								}
+							})
+						}
+					}
+				});
+			}
 		}
 	}
 </script>

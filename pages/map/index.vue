@@ -34,16 +34,19 @@
 				<cover-view style="padding-top:125rpx; line-height:50rpx; color: #758197;">使用心率设备</cover-view>
 				<cover-view style="line-height:50rpx;color: #758197; ">提升体验，随心而动</cover-view>
 			</cover-view>
-			<cover-view class="dataMaskFooter">
+			<cover-view class="dataMaskFooter" v-if="isRuning">
 				<cover-image class="showMap" src="https://i.loli.net/2020/05/12/JjvgAWBXZdh9Ofa.png" @tap="hidden_data_mask"></cover-image>
-				<cover-image class="runing_btn" src="https://i.loli.net/2020/05/12/otgSwrXH8LPGEbc.png" mode="" v-show="!isRuning"
-				 @tap="startRuning"></cover-image>
-				<cover-image class="runing_btn" src="https://i.loli.net/2020/05/12/pY95mXg6wjsxISH.png" mode="" v-show="isRuning"
-				 @tap="pauseRuning"></cover-image>
+				<cover-image class="runing_btn" src="https://i.loli.net/2020/05/12/pY95mXg6wjsxISH.png" mode="" @tap="pauseRuning"></cover-image>
 				<cover-image class="showMap" src="https://i.loli.net/2020/05/12/2QC4XYkRG7jT8Hc.png" @tap="setting"></cover-image>
 			</cover-view>
+			<cover-view class="dataMaskFooter" v-else>
+				<cover-image class="showMap" src="https://i.loli.net/2020/05/12/JjvgAWBXZdh9Ofa.png" @tap="hidden_data_mask"></cover-image>
+				<cover-image class="runing_btn" src="https://i.loli.net/2020/05/12/otgSwrXH8LPGEbc.png" mode="" @tap="startRuning">
+				</cover-image>
+				<cover-image class="showMap" src="@/static/image/over.png"></cover-image>
+			</cover-view>
 			<cover-view class="tip" style="white-space:pre-wrap">
-				使用提示\n1.退出请暂停后长按结束键。\n2.直接返回或关闭小程序将无法保存数据。\n3.请确保微信已开启后台活动权限。\n4.长时间运动数据量较大，结束时请耐心等候。</cover-view>
+				使用提示\n1.退出请暂停后按结束键。\n2.直接返回或关闭小程序将无法保存数据。\n3.请确保微信已开启后台活动权限。\n4.长时间运动数据量较大，结束时请耐心等候。</cover-view>
 		</cover-view>
 
 		<!-- 是否开始的蒙层 -->
@@ -179,6 +182,7 @@
 		destroyed() {
 			// #ifdef MP-WEIXIN
 			clearInterval(this.timer)
+			clearInterval(this.cutDownTimer)
 			wx.offLocationChange(() => {
 				console.log("取消监听实时地理位置变化事件")
 			})
@@ -538,6 +542,7 @@
 			color: #fff;
 			text-align: center;
 			margin-top: 100rpx;
+
 			cover-view:first-child {
 				font-size: 100rpx;
 			}
@@ -566,7 +571,8 @@
 			width: 100%;
 			display: flex;
 			position: absolute;
-			bottom:311rpx ;
+			bottom: 311rpx;
+
 			.runing_btn {
 				width: 120rpx;
 				height: 120rpx;

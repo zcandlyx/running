@@ -18,7 +18,10 @@ class Decode {
 			mode: CryptoJS.mode.CBC,
 			padding: CryptoJS.pad.Pkcs7
 		})
+		console.log(Base64.decode(CryptoJS.enc.Base64.stringify(decrypt)))
 		return JSON.parse(Base64.decode(CryptoJS.enc.Base64.stringify(decrypt)))
+		
+		// 
 	}
 }
 export default Decode

@@ -80,7 +80,6 @@
 </template>
 
 <script>
-	import { getOpenID } from "@/api/mine.js"
 	let self;
 	export default {
 		data() {
@@ -141,24 +140,7 @@
 					title: "该功能暂未开放"
 				})
 			},
-			init() {
-
-				wx.login({
-					success(res) {
-						if (res.code) {
-							//发起网络请求
-							getOpenID({ code: res.code }).then(res => {
-								console.log(res)
-								self.$store.commit("user/SET_SESSION_KEY", res.session_key)
-							}).catch(res => {
-								console.log(res)
-							})
-						} else {
-							console.log('登录失败！' + res.errMsg)
-						}
-					}
-				})
-			}
+			
 
 		},
 		onShow() {
@@ -168,26 +150,9 @@
 				console.log(e)
 				//TODO handle the exception
 			}
-		},
-		created() {
 			// console.log("你好")
 			self = this
-			const sessionKey = self.$store.getters.getSessionKey;
-			if (!sessionKey) {
-				this.init()
-				return
-			}
-			wx.checkSession({
-				success() {
-					console.log("未过期")
-					//session_key 未过期，并且在本生命周期一直有效
-				},
-				fail() {
-					self.init()
-					// session_key 已经失效，需要重新执行登录流程
-					//重新登录
-				}
-			})
+			
 		}
 	}
 </script>
