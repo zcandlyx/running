@@ -1,4 +1,4 @@
-import {host} from './setting.js'
+import { host } from './setting.js'
 
 function http(config) {
 
@@ -39,14 +39,24 @@ function http(config) {
 		// 合并config配置到默认setting中 
 
 		setting = Object.assign(setting, config);
-
-		// 修改url localhost/api/xxx..x. 后台cors处理 
+		
+		console.log("/^http/",(/^http/).test(setting.url))
+		
+		if (!(/^http/).test(setting.url)) {
+			
+			setting.url = host + setting.url;
+			
+		}
+		
+		uni.request(setting);
+		
+		// 修改url localhost/api/xxx..x. 后台cors处理 \
+		
 		console.log(host)
-		// setting.url = host + setting.url;
+		
 
 		// 发送请求 
 
-		uni.request(setting);
 
 	})
 

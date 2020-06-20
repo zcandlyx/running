@@ -81,25 +81,36 @@
 
 <script>
 	let self;
+	import { register, inquire } from "@/api/mine.js"
 	export default {
 		data() {
 			return {
 				info: {
-					nickName: null,
+					nickName: "",
 					islogin: 0,
 					isgetuserinfo: !1,
 					loginnote: 0,
 					getcodetimes: 0,
-					gettokentimes: 0
-				}
+					gettokentimes: 0,
+
+				},
+				openId: ""
 			};
 		},
 		methods: {
 
-			GetUserInfo({ detail }) {
+			async GetUserInfo({ detail }) {
 				console.log(detail)
 				this.info = { ...JSON.parse(detail.rawData) }
-				this.$store.commit("user/SET_USER_INFO", this.info)
+				const res = await register({ ...this.info, openId: this.openId });
+				console.log({ ...this.info, openId: this.openId })
+				if (res.status === 0) {
+					uni.showToast({
+						title: "注册成功",
+						icon: "none"
+					})
+				}
+				this.$store.commit("user/SET_USER_INFO", this.info);
 			},
 			/* 运动步数统计 */
 			toSportGoal() {
@@ -140,19 +151,25 @@
 					title: "该功能暂未开放"
 				})
 			},
-			
+
+
+
 
 		},
 		onShow() {
-			try {
-				this.info = this.$store.getters.userInfo
-			} catch (e) {
-				console.log(e)
-				//TODO handle the exception
-			}
+			this.openId = this.$store.getters.openId;
+			this.info = this.$store.getters.userInfo || {
+				nickName: "",
+				islogin: 0,
+				isgetuserinfo: !1,
+				loginnote: 0,
+				getcodetimes: 0,
+				gettokentimes: 0,
+			};
+			console.log(this.openId)
 			// console.log("你好")
-			self = this
-			
+			self = this;
+
 		}
 	}
 </script>

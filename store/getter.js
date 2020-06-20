@@ -6,14 +6,10 @@ export default {
 		if (userObj.nickName) {
 			// console.log('userObj',userObj);
 			return userObj;
+		}else{
+			return{}
 		}
 		// vuex不存在 从storage中查找
-		let userInfo = uni.getStorageSync('userInfo');
-		if (userInfo.nickName) {
-			return userInfo;
-		} else {
-			return {};
-		}
 
 	},
 	/* 运动状态 */
@@ -51,7 +47,18 @@ export default {
 			return sessionKey;
 		}
 		return ""
-	}
+	},
+	openId(state, getters) {
+		let openId = state.user.openId;
+		console.log("store-openid", state.user.userInfo)
+		// 注意 在vuex中 {} 是不会被判断为false的 
+		if (openId) {
+			// console.log('userObj',userObj);
+			return openId;
+		}
+		// vuex不存在 从storage中查找
+
+	},
 	/* 	// 获取微信用户信息
 		wxInfo(state) {
 			//先查看vuex
@@ -79,22 +86,7 @@ export default {
 			}
 			return '';
 		},
-		openId(state, getters) {
-			let openId = state.user.openId;
-			console.log("store-openid", state.user.userInfo)
-			// 注意 在vuex中 {} 是不会被判断为false的 
-			if (openId) {
-				// console.log('userObj',userObj);
-				return openId;
-			}
-			// vuex不存在 从storage中查找
-			openId = uni.getStorageSync('openId');
-			if (openId) {
-				return openId;
-			} else {
-				return "";
-			}
-		},
+		
 		integral(state) {
 			// vuex储存
 			var integral_vuex = state.integral.integral;

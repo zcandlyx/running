@@ -25,6 +25,7 @@
 	import defaulImg from "@/static/icon/100.png"
 	// import Decode from "@/utils/decode.js"
 	import { nowWeather } from "@/api/weather.js"
+	import { getStep } from "@/api/mine.js"
 	export default {
 		data() {
 			return {
@@ -33,11 +34,14 @@
 				currentStep: 0
 			};
 		},
+
 		created() {
-			this.getWeather(),
-				this.getStep()
+			this.getWeather();
+			this.getStep()
+
 		},
 		methods: {
+
 			getWeather() {
 
 				self = this;
@@ -58,27 +62,50 @@
 				});
 
 			},
+
 			getStep() {
-				// #ifdef MP-WEIXIN
-				const sessionKey = uni.getStorageSync("sessionKey");
-				wx.getWeRunData({
-					success(res) {
-
-						// let ress = JSON.parse(res)
-						console.log(sessionKey)
-						// return
-						const decode = new Decode("wx6b49ede83038818e", sessionKey);
-						const step = decode.decryptData(res.encryptedData, res.iv)
-
-						let arr = step.stepInfoList.slice(-1)
-						self.currentStep = arr[0].step
-					},
-					fail(res) {
-						console.log(res)
-					}
-				})
-				// #endif
+				let code;
+				try {
+					uni.getProvider({
+						service: 'oauth',
+						success: function(res) {
+							console.log(res.provider)
+							if (~res.provider.indexOf('weixin')) {
+								uni.login({
+									success(res) {
+										if (res.code) {
+											code = res.code;
+											// #ifdef MP-WEIXIN
+											wx.getWeRunData({
+												async success(res) {
+													res.code = code;
+													const step = await getStep(res);
+													if (step.status === 0) {
+														self.currentStep = step.data.stepInfoList[step.data.stepInfoList.length - 1].step
+													} else {
+														throw new Error("解密失败")
+													}
+												}
+											})
+											// #endif
+										} else {
+											console.log('登录失败！' + res.errMsg)
+										}
+									}
+								})
+							}
+						}
+					});
+				} catch (e) {
+					console.log(e)
+					uni.showToast({
+						title: "系统异常",
+						icon: "none"
+					})
+					//TODO handle the exception
+				}
 			}
+
 		}
 	}
 </script>
@@ -96,7 +123,7 @@
 
 		.step {
 			position: fixed;
-			right:-30rpx;
+			right: -30rpx;
 			padding: 20rpx 40rpx 20rpx 20rpx;
 			margin-top: 120rpx;
 			text-align: left;
@@ -108,11 +135,12 @@
 			position: fixed;
 			display: flex;
 			align-items: center;
-			padding: 10rpx;
+			padding: 10rpx 20rpx;
 			border-radius: 60rpx;
 			background-color: #fff;
-			margin-top:20rpx;
+			margin-top: 20rpx;
 			left: 20rpx;
+
 			image {
 				width: 50rpx;
 				height: 50rpx;

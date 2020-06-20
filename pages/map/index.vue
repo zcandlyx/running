@@ -8,8 +8,8 @@
 			 :longitude="longitude" subkey="3WUBZ-VQF6J-RIYFS-FXCZC-5FFSO-S2FFO"></map>
 		</view>
 		<cover-view class="cover_header bg-white text-grey shadow">
-			<cover-view class="speed" style="white-space:pre-wrap">{{speed}}m/s\n速度</cover-view>
-			<cover-view class="speed" style="white-space:pre-wrap">{{horizontalAccuracy}}\n公里</cover-view>
+			<cover-view class="speed" style="white-space:pre-wrap">{{speed}}m/s\n配速</cover-view>
+			<cover-view class="speed" style="white-space:pre-wrap">{{Number(horizontalAccuracy).toFixed(2)}}\n公里</cover-view>
 		</cover-view>
 		<!--隐藏地图按钮 -->
 		<!-- :style="{ pointerEvents:mapPointerEvents  }" -->
@@ -23,11 +23,11 @@
 		<!-- 数据蒙层 -->
 		<cover-view class="data_mask animate__animated " :style="{ pointerEvents:pointerEvents  }" :class="dataMaskHidden===true?animation:'.animate__backInLeft '">
 			<cover-view class="dataMaskSub">
-				<cover-view>{{horizontalAccuracy}}</cover-view>
+				<cover-view>{{Number(horizontalAccuracy).toFixed(2)}}</cover-view>
 				<cover-view>公里</cover-view>
 			</cover-view>
 			<cover-view class="speed_distance text-grey  ">
-				<cover-view class="speed" style="white-space:pre-wrap">{{speed}}m/s\n速度</cover-view>
+				<cover-view class="speed" style="white-space:pre-wrap">{{Number(speed).toFixed(2)}}m/s\n速度</cover-view>
 				<cover-view class="speed" style="white-space:pre-wrap">{{time}}\n时长</cover-view>
 			</cover-view>
 			<cover-view class="equipment">
@@ -43,7 +43,7 @@
 				<cover-image class="showMap" src="https://i.loli.net/2020/05/12/JjvgAWBXZdh9Ofa.png" @tap="hidden_data_mask"></cover-image>
 				<cover-image class="runing_btn" src="https://i.loli.net/2020/05/12/otgSwrXH8LPGEbc.png" mode="" @tap="startRuning">
 				</cover-image>
-				<cover-image class="showMap" src="@/static/image/over.png"></cover-image>
+				<cover-image class="showMap" src="@/static/image/over.png" @tap="overRunning"></cover-image>
 			</cover-view>
 			<cover-view class="tip" style="white-space:pre-wrap">
 				使用提示\n1.退出请暂停后按结束键。\n2.直接返回或关闭小程序将无法保存数据。\n3.请确保微信已开启后台活动权限。\n4.长时间运动数据量较大，结束时请耐心等候。</cover-view>
@@ -80,10 +80,10 @@
 
 				circles: [{ latitude: "", longitude: "", color: "#99CCFF", radius: 20 }], //圆点
 				speed: "0",
-				horizontalAccuracy: "0.00", //跑步长度
+				horizontalAccuracy: 0, //跑步长度
 				isRuning: true,
 				num: 3, //
-				timer: null, //开始倒计时
+				timer: 0, //开始倒计时
 				beforeStart: true, //开始倒计时标志
 				animation: 'animate__backOutLeft',
 				n_sec: 0, //秒
@@ -93,7 +93,9 @@
 				time: "00: 00: 00", //计时
 				dataMaskHidden: false,
 				pointerEvents: 'auto',
-				mapPointerEvents: "none"
+				mapPointerEvents: "none",
+				positionTimer: {},// 获取位置的timer 
+				startTime: 0
 				// styleObject: {
 				// 	pointerEvents: 'auto'
 				// }
@@ -183,12 +185,13 @@
 			// #ifdef MP-WEIXIN
 			clearInterval(this.timer)
 			clearInterval(this.cutDownTimer)
-			wx.offLocationChange(() => {
-				console.log("取消监听实时地理位置变化事件")
-			})
-			wx.stopLocationUpdate(() => {
-				console.log("关闭监听实时位置变化")
-			})
+			clearInterval(this.positionTimer)
+			// wx.offLocationChange(() => {
+			// 	console.log("取消监听实时地理位置变化事件")
+			// })
+			// wx.stopLocationUpdate(() => {
+			// 	console.log("关闭监听实时位置变化")
+			// })
 			// #endif
 		},
 		methods: {
@@ -201,12 +204,14 @@
 						console.log("倒计时结束")
 						clearInterval(this.timer)
 						this.monitor();
-						this.coutDown()
+						this.coutDown();
+						this.startTime = new Date().getTime();
+						console.log("starttime", this.startTime);
 						// this.$store.commit("running/SET_RUN_STATE", 0)
 					}
 				}, 1000)
 				this.getPosition()
-				/* 微信中实时监测位置信息 */
+				/* 微信中实时监测位置信息 会造成闪烁*/
 
 				// // #ifdef MP-WEIXIN
 				// wx.startLocationUpdateBackground({
@@ -283,27 +288,45 @@
 						console.log(res)
 					}
 				});
+
 			},
 			/* 监测 */
 			monitor() {
 				// #ifdef MP-WEIXIN
-				wx.startLocationUpdateBackground({
-					success() {
-						console.log("实时监测开启")
-						wx.onLocationChange((res) => {
-							console.log("实时监测位置信息", res)
-							const { latitude, longitude, horizontalAccuracy, speed } = res;
-							self.polyline[0].points.push({ latitude, longitude }) //运动轨迹
-							self.speed = speed.toFixed(2) //跑步速度
+				/* 通过循环来获取地理位置,实时监测会造成画线抖动 */
+				this.positionTimer = setInterval(() => {
+					uni.getLocation({
+						type: 'gcj02',
+						success: function({ speed, longitude, latitude }) {
+							console.log('当前位置的纬度：' + latitude)
+							self.polyline[0].points.push({ latitude, longitude })
+							const currentTime = new Date().getTime();
+							const second = (currentTime - self.startTime) / 60000;
 							self.horizontalAccuracy = Number(self.GetDistance(self.startLatitude, self.startLongitude, latitude,
-								longitude)).toFixed(2); //运动距离
-							console.log("horizontalAccuracy", self.horizontalAccuracy)
-						})
-					},
-					fail() {
-						console.log("实时监测开启失败")
-					}
-				})
+								longitude)).toFixed(2);
+							self.speed = (second / self.horizontalAccuracy).toFixed(2);
+							console.log("当前速度", self.speed);
+						}
+					});
+				}, 2000)
+				// wx.startLocationUpdateBackground({
+				// 	success() {
+				// 		console.log("实时监测开启")
+				// 		wx.onLocationChange((res) => {
+				// 			console.log("实时监测位置信息", res)
+				// 			const { latitude, longitude, horizontalAccuracy, speed } = res;
+
+				// 			self.polyline[0].points.push({ latitude, longitude }) //运动轨迹
+				// 			self.speed = speed.toFixed(2) //跑步速度
+				// 			self.horizontalAccuracy = Number(self.GetDistance(self.startLatitude, self.startLongitude, latitude,
+				// 				longitude)).toFixed(2); //运动距离
+				// 			console.log("horizontalAccuracy", self.horizontalAccuracy)
+				// 		})
+				// 	},
+				// 	fail() {
+				// 		console.log("实时监测开启失败")
+				// 	}
+				// })
 				// #endif
 			},
 			/* 暂停跑步 */
@@ -311,19 +334,19 @@
 				this.isRuning = !this.isRuning;
 				/* 暂停时清除秒表*/
 				clearInterval(this.cutDownTimer)
-
+				clearInterval(this.positionTimer)
 				// #ifdef MP-WEIXIN
-				wx.offLocationChange(() => {
-					console.log("取消监听实时地理位置变化事件")
-				})
-				wx.stopLocationUpdate({
-					success() {
-						console.log("关闭监听实时位置变化")
-					},
-					fail() {
-						console.log("关闭监听实时位置变化失败")
-					}
-				})
+				// wx.offLocationChange(() => {
+				// 	console.log("取消监听实时地理位置变化事件")
+				// })
+				// wx.stopLocationUpdate({
+				// 	success() {
+				// 		console.log("关闭监听实时位置变化")
+				// 	},
+				// 	fail() {
+				// 		console.log("关闭监听实时位置变化失败")
+				// 	}
+				// })
 				// #endif
 			},
 			/* 版本比较 */
@@ -396,6 +419,10 @@
 					}
 
 				}, 1000);
+			},
+			/* 结束跑步 */
+			overRunning(){
+				console.log(this.polyline)
 			}
 		}
 

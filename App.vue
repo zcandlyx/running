@@ -1,6 +1,6 @@
 <script>
 	import Vue from 'vue'
-	import { getOpenID } from "@/api/mine.js"
+	import { getOpenId, register, inquire } from "@/api/mine.js"
 	let self;
 	export default {
 		onLaunch: function() {
@@ -38,54 +38,65 @@
 		},
 		onShow: function() {
 			console.log('App Show')
-			self = this
-			const sessionKey = this.$store.getters.getSessionKey;
-			if (!sessionKey) {
-				this.init()
-				return
-			}
-			uni.checkSession({
-				success() {
-					console.log("未过期")
-					//session_key 未过期，并且在本生命周期一直有效
-				},
-				fail() {
-					console.log("已经过期")
-					self.init()
-					// session_key 已经失效，需要重新执行登录流程
-					//重新登录
-				}
-			})
+			self = this;
+			this.getOpenId()
 		},
 		onHide: function() {
 			console.log('App Hide')
 		},
 		methods: {
-			init() {
-				uni.getProvider({
-					service: 'oauth',
-					success: function(res) {
-						console.log(res.provider)
-						if (~res.provider.indexOf('weixin')) {
-							uni.login({
-								success(res) {
-									if (res.code) {
-										//发起网络请求
-										getOpenID({ code: res.code }).then(res => {
-											console.log("mine===>", res)
-											self.$store.commit("user/SET_SESSION_KEY", res.session_key)
-										}).catch(res => {
-											console.log(res)
-										})
-									} else {
-										console.log('登录失败！' + res.errMsg)
-									}
-								}
-							})
-						}
+
+			async inquire(data) {
+				try {
+					const res = await inquire(data);
+					if (res.status === 0) {
+						console.log(res.data)
+						this.$store.commit("user/SET_USER_INFO", res.data)
 					}
-				});
+				} catch (e) {
+					console.log(e)
+					uni.showToast({
+						title: "系统异常",
+						icon: "none"
+					})
+					//TODO handle the exception
+				}
+			},
+
+			getOpenId() {
+				try {
+					uni.getProvider({
+						service: 'oauth',
+						success: function(res) {
+							console.log(res.provider)
+							if (~res.provider.indexOf('weixin')) {
+								uni.login({
+									async success({ code }) {
+										if (code) {
+											//发起网络请求
+											const res = await getOpenId({ code })
+											if (res.status === 0) {
+												self.$store.commit("user/SET_OPENID",res.data.openid)
+												self.inquire({ openId: res.data.openid });
+											}
+										} else {
+											console.log('登录失败！' + res.errMsg)
+										}
+									}
+								})
+							}
+						}
+					});
+				} catch (e) {
+					console.log(e)
+					uni.showToast({
+						title: "系统异常",
+						icon: "none"
+					})
+					//TODO handle the exception
+				}
 			}
+
 		}
 	}
 </script>

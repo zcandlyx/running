@@ -1,0 +1,1 @@
+<view class="data-v-11177de7"><view data-event-opts="{{[['tap',[['run',['$event']]]]]}}" class="startRun data-v-11177de7" bindtap="__e">开始</view><map style="width:100%;height:300px;" id="map" polyline="{{polyline}}" subkey="3WUBZ-VQF6J-RIYFS-FXCZC-5FFSO-S2FFO" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{covers}}" class="data-v-11177de7"></map></view>

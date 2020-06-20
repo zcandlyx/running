@@ -57,7 +57,7 @@
   -webkit-box-align: center;
   -webkit-align-items: center;
           align-items: center;
-  padding: 10rpx;
+  padding: 10rpx 20rpx;
   border-radius: 60rpx;
   background-color: #fff;
   margin-top: 20rpx;

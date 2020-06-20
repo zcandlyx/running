@@ -25,10 +25,10 @@
 /* 透明度 */
 /* 文章场景相关 */
 .container.data-v-03a5353f {
+  height: 100vh;
   background-color: #8dc63f;
-  width: 90vw;
-  margin-left: 5vw;
-  color: #758197;
+  padding: 20rpx;
+  color: #fff;
   line-height: 70rpx;
   font-size: 32rpx;
 }

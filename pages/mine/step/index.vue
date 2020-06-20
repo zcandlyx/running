@@ -18,7 +18,7 @@
 <script>
 	import Decode from "@/utils/decode.js"
 	import uCharts from '@/js_sdk/u-charts/u-charts/u-charts.js';
-
+	import { getStep } from "@/api/mine.js"
 	import { getOpenID } from "@/api/mine.js"
 	let self;
 	let canvaColumnWeek = {};
@@ -57,63 +57,11 @@
 			};
 		},
 		methods: {
-			init() {
 
-				const sessionKey = uni.getStorageSync("sessionKey");
-				// #ifdef MP-WEIXIN
-				wx.getWeRunData({
-					success(res) {
-						console.log(res)
-						// let ress = JSON.parse(res)
-						console.log(sessionKey)
-						// return
-						const decode = new Decode("wx6b49ede83038818e", sessionKey);
-						const step = decode.decryptData(res.encryptedData, res.iv)
-						console.log(step)
-						step.stepInfoList.map((item, index) => {
-							let date = new Date()
-
-							date.setTime(item.timestamp * 1000);
-							console.log(date.getDate())
-							if (index % 5 === 0) {
-								self.chartData.categories.push(date.getMonth() + 1 + "-" + date.getDate())
-								self.chartData.series[0].data.push(item.step)
-							}
-							if (index > 23) {
-								self.chartDataWeek.categories.push(date.getMonth() + 1 + "-" + date.getDate())
-								console.log(date.getDate(), item.step)
-								self.chartDataWeek.series[0].data.push(item.step)
-							}
-							// self.chartData.categories[Math.floor(index / 5)].push(date.getMonth() + 1 + "-" + date.getDate())
-						})
-						console.log(self.chartData.categories, self.chartData.series[0].data)
-						self.showColumn("canvasColumn", self.chartData, "")
-						self.showColumn("canvasColumn2", self.chartDataWeek, 1)
-					},
-					fail(res) {
-						console.log(res)
-					}
-				})
-				// #endif
-
-
-				// wx.login({
-				// 	success(res) {
-				// 		if (res.code) {
-				// 			//发起网络请求
-				// 			getOpenID({ code: res.code }).then(res => {
-				// 				console.log(res)
-				// 			}).catch(res => {
-				// 				console.log(res)
-				// 			})
-				// 		} else {
-				// 			console.log('登录失败！' + res.errMsg)
-				// 		}
-				// 	}
-				// })
-			},
 			showColumn(canvasId, chartData, status) {
+				
 				if (!status) {
+					
 					console.log(canvasId, chartData)
 					canvaColumn = new uCharts({
 						$this: self,
@@ -177,6 +125,7 @@
 
 				// console.log(canvaColumn)
 			},
+
 			touchColumn(e) {
 
 				canvaColumn.showToolTip(e, {
@@ -189,6 +138,7 @@
 					}
 				});
 			},
+
 			touchColumnWeek(e) {
 
 				canvaColumnWeek.showToolTip(e, {
@@ -201,8 +151,74 @@
 					}
 				});
 			},
+
+			getStep() {
+				let code;
+				try {
+					uni.getProvider({
+						service: 'oauth',
+						success: function(res) {
+							console.log(res.provider)
+							if (~res.provider.indexOf('weixin')) {
+								uni.login({
+									success(res) {
+										if (res.code) {
+											code = res.code;
+											// #ifdef MP-WEIXIN
+											wx.getWeRunData({
+												async success(res) {
+													res.code = code;
+													const step = await getStep(res);
+													if (step.status === 0) {
+														step.data.stepInfoList.map((item, index) => {
+															let date = new Date()
+
+															date.setTime(item.timestamp * 1000);
+															console.log(date.getDate())
+															if (index % 5 === 0) {
+																self.chartData.categories.push(date.getMonth() + 1 + "-" + date.getDate())
+																self.chartData.series[0].data.push(item.step)
+															}
+															if (index > 23) {
+																self.chartDataWeek.categories.push(date.getMonth() + 1 + "-" + date.getDate())
+																console.log(date.getDate(), item.step)
+																self.chartDataWeek.series[0].data.push(item.step)
+															}
+															// self.chartData.categories[Math.floor(index / 5)].push(date.getMonth() + 1 + "-" + date.getDate())
+														})
+														console.log(self.chartData.categories, self.chartData.series[0].data)
+														self.showColumn("canvasColumn", self.chartData, "")
+														self.showColumn("canvasColumn2", self.chartDataWeek, 1)
+													} else {
+														throw new Error("解密失败")
+													}
+												}
+											})
+											// #endif
+										} else {
+											console.log('登录失败！' + res.errMsg)
+										}
+									}
+								})
+							}
+						}
+					});
+				} catch (e) {
+					console.log(e)
+					uni.showToast({
+						title: "系统异常",
+						icon: "none"
+					})
+					//TODO handle the exception
+				}
+			}
+
 		},
-		created() {},
+
+		created() {
+			this.getStep()
+		},
+
 		onShow() {
 			self = this
 			//#ifdef MP-ALIPAY
@@ -219,7 +235,7 @@
 			this.cWidth = uni.upx2px(750);
 			this.cHeight = uni.upx2px(500);
 			// this.getServerData();
-			this.init()
+			// this.init()
 		}
 	}
 </script>
