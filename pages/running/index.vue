@@ -4,12 +4,16 @@
 			<block slot="content" class="text-white">跑步吧</block>
 		</cu-custom>
 		<view class="wrap_sub">
-			<view class="weather">
+			<view class="weather" v-if="weatherAuth">
 				<image :src="weatherImg" mode=""></image>
 				<text>{{weather}}</text>
 			</view>
-			<view class="step">
+			<text class="weather" v-else @tap="getWeather">点击获取天气信息</text>
+			<view class="step" v-if="stepAuth">
 				今日步数:{{currentStep}}
+			</view>
+			<view class="step" v-else @tap="getStep">
+				点击获取运动步数
 			</view>
 			<navigator url="../map/index" class="running_btn" open-type="navigate" hover-class="none">
 				<image src="https://i.loli.net/2020/05/12/GkPOK6VImWtqrFD.png" mode=""></image>
@@ -29,34 +33,57 @@
 	export default {
 		data() {
 			return {
-				weather: "36.5℃  晴",
+				weather: "获取中...",
 				weatherImg: defaulImg,
-				currentStep: 0
+				currentStep: 0,
+				weatherAuth: false,
+				stepAuth: false
 			};
 		},
 
 		created() {
-			this.getWeather();
-			this.getStep()
+			self = this;
+			uni.getSetting({
+				success({ authSetting }) {
+					console.log(authSetting)
+					if (authSetting["scope.userLocation"]) {
+						self.weatherAuth = true
+						self.getWeather();
+					}
+					if (authSetting["scope.werun"]) {
+						self.stepAuth = true
+						self.getStep()
+					}
 
+				},
+				fail() {
+					console.log("获取失败")
+				}
+			})
+			// this.getStep()
 		},
 		methods: {
 
 			getWeather() {
 
-				self = this;
+
 				/* 获取当前位置 */
 				uni.getLocation({
 					type: 'gcj02',
 					isHighAccuracy: true,
 					success: function(res) {
+						self.weatherAuth = true
 						nowWeather({ location: `${res.longitude},${res.latitude}`, key: 'e94ce65c8da94aa69947f2dc1d268596' }).then(res => {
 							let data = res.HeWeather6[0].now;
 							self.weather = data.tmp + "℃  " + data.cond_txt;
-							self.weatherImg = `http://qa7dp7qmh.bkt.clouddn.com/${data.cond_code}.png`
+							self.weatherImg = `https://cdn.azhen.work/${data.cond_code}.png`
 						})
 					},
 					fail(res) {
+						uni.showToast({
+							title: "获取地理位置失败",
+							icon: "none"
+						})
 						console.log(res)
 					}
 				});
@@ -78,6 +105,7 @@
 											// #ifdef MP-WEIXIN
 											wx.getWeRunData({
 												async success(res) {
+													self.stepAuth = true
 													res.code = code;
 													const step = await getStep(res);
 													if (step.status === 0) {
@@ -85,6 +113,12 @@
 													} else {
 														throw new Error("解密失败")
 													}
+												},
+												fail() {
+													uni.showToast({
+														title: "获取步数失败",
+														icon: "none"
+													})
 												}
 											})
 											// #endif
@@ -115,7 +149,7 @@
 		height: 100%;
 		display: flex;
 		flex-direction: column;
-		background: url("https://i.loli.net/2020/05/12/BFdacPpOGu4Atl7.jpg")no-repeat center /100% 100%;
+		background: url("https://cdn.azhen.work/wx-bg.jpg")no-repeat center /100% 100%;
 
 		.wrap_sub {
 			flex: 1;

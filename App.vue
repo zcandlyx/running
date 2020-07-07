@@ -4,7 +4,32 @@
 	let self;
 	export default {
 		onLaunch: function() {
-			console.log('App Launch')
+			this.getOpenId();
+			self = this;
+			const updateManager = uni.getUpdateManager();
+
+			updateManager.onCheckForUpdate(function(res) {
+				// 请求完新版本信息的回调
+				console.log("新版本===>",res.hasUpdate);
+			});
+
+			updateManager.onUpdateReady(function(res) {
+				uni.showModal({
+					title: '更新提示',
+					content: '新版本已经准备好，是否重启应用？',
+					success(res) {
+						if (res.confirm) {
+							// 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+							updateManager.applyUpdate();
+						}
+					}
+				});
+
+			});
+
+			updateManager.onUpdateFailed(function(res) {
+				// 新的版本下载失败
+			});
 			uni.getSystemInfo({
 				success: function(e) {
 					// #ifndef MP
@@ -38,20 +63,18 @@
 		},
 		onShow: function() {
 			console.log('App Show')
-			self = this;
-			this.getOpenId()
 		},
 		onHide: function() {
 			console.log('App Hide')
 		},
 		methods: {
-
 			async inquire(data) {
 				try {
 					const res = await inquire(data);
 					if (res.status === 0) {
-						console.log(res.data)
-						this.$store.commit("user/SET_USER_INFO", res.data)
+						self.$store.commit("bg/SET_HOME_BG", res.data.background);
+						self.$store.commit("user/SET_USER_INFO", res.data);
+						console.log("store-info====>")
 					}
 				} catch (e) {
 					console.log(e)
@@ -63,30 +86,30 @@
 				}
 			},
 
-			getOpenId() {
+			async getOpenId() {
 				try {
-					uni.getProvider({
-						service: 'oauth',
-						success: function(res) {
-							console.log(res.provider)
-							if (~res.provider.indexOf('weixin')) {
-								uni.login({
-									async success({ code }) {
-										if (code) {
-											//发起网络请求
-											const res = await getOpenId({ code })
-											if (res.status === 0) {
-												self.$store.commit("user/SET_OPENID",res.data.openid)
-												self.inquire({ openId: res.data.openid });
-											}
-										} else {
-											console.log('登录失败！' + res.errMsg)
-										}
-									}
-								})
+					uni.login({
+						async success({ code }) {
+							if (code) {
+								const res = await getOpenId({ code })
+								if (res.status === 0) {
+									self.$store.commit("user/SET_OPENID", res.data.openid)
+									self.inquire({ openId: res.data.openid })
+								}
+							} else {
+								console.log('登录失败！' + res.errMsg)
 							}
 						}
-					});
+					})
+					// uni.getProvider({
+					// 	service: 'oauth',
+					// 	success: function(res) {
+					// 		console.log(res.provider)
+					// 		if (~res.provider.indexOf('weixin')) {
+
+					// 		}
+					// 	}
+					// });
 				} catch (e) {
 					console.log(e)
 					uni.showToast({
@@ -96,7 +119,6 @@
 					//TODO handle the exception
 				}
 			}
-
 		}
 	}
 </script>

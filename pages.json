@@ -34,6 +34,14 @@
 		}, {
 			"path": "pages/mine/map/index",
 			"style": { "navigationBarTitleText": "运动回放" }
+		}, {
+			"path": "pages/mine/setting/index",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/stepRanking/index",
+			"style": { "navigationBarTitleText": "步数排行" }
 		}
 	],
 	"globalStyle": {

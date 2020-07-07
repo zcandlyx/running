@@ -24,7 +24,7 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.mask.data-v-670924cb {
+.mask.data-v-4219aa94 {
   position: fixed;
   top: 0;
   left: 0;
@@ -46,18 +46,28 @@
   -webkit-align-items: center;
           align-items: center;
   pointer-events: none;
+  font-size: 36rpx;
 }
-.mask cover-view.data-v-670924cb {
+.mask cover-view.data-v-4219aa94:first-child {
+  padding: 0 10rpx;
+  font-size: 28rpx;
+  line-height: 1.5;
+  position: fixed;
+  top: 5vh;
+  text-align: left;
+  color: #fff;
+  white-space: normal;
+}
+.mask cover-view.data-v-4219aa94:nth-child(2) {
   width: 150rpx;
   height: 150rpx;
   line-height: 150rpx;
-  font-size: 36rpx;
   text-align: center;
   background-color: #fff;
   color: #8dc63f;
   border-radius: 50%;
 }
-.data_mask.data-v-670924cb {
+.data_mask.data-v-4219aa94 {
   position: fixed;
   top: 0;
   left: 0;
@@ -71,7 +81,7 @@
   background-color: #191970;
   text-align: center;
 }
-.data_mask .tip.data-v-670924cb {
+.data_mask .tip.data-v-4219aa94 {
   position: absolute;
   width: 80%;
   left: 0;
@@ -85,13 +95,13 @@
   line-height: 1.5;
   background-color: #8dc63f;
 }
-.wrap.data-v-670924cb {
+.wrap.data-v-4219aa94 {
   height: 100%;
 }
-.wrap .map-box.data-v-670924cb {
+.wrap .map-box.data-v-4219aa94 {
   height: 100%;
 }
-.wrap .cover_header.data-v-670924cb {
+.wrap .cover_header.data-v-4219aa94 {
   position: fixed;
   width: 100%;
   height: 160rpx;
@@ -107,15 +117,17 @@
   -webkit-box-align: center;
   -webkit-align-items: center;
           align-items: center;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.8);
 }
-.wrap .speed.data-v-670924cb {
+.wrap .speed.data-v-4219aa94 {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
           flex: 1;
   text-align: center;
   font-size: 48rpx;
 }
-.wrap .control.data-v-670924cb {
+.wrap .control.data-v-4219aa94 {
   position: fixed;
   display: -webkit-box;
   display: -webkit-flex;
@@ -133,11 +145,11 @@
   background-color: #fff;
   border-radius: 50%;
 }
-.wrap .geolocation_control.data-v-670924cb {
+.wrap .geolocation_control.data-v-4219aa94 {
   width: 50rpx;
   height: 50rpx;
 }
-.wrap .hiddenMap.data-v-670924cb {
+.wrap .hiddenMap.data-v-4219aa94 {
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 50%;
   width: 120rpx;
@@ -151,29 +163,29 @@
   margin: 0 auto 4vh;
   overflow: hidden;
 }
-.wrap .hiddenMap .hiddenMapImg.data-v-670924cb {
+.wrap .hiddenMap .hiddenMapImg.data-v-4219aa94 {
   width: 40rpx;
   height: 40rpx;
   margin: 40rpx auto;
 }
-.wrap .dataMaskSub.data-v-670924cb {
+.wrap .dataMaskSub.data-v-4219aa94 {
   color: #fff;
   text-align: center;
   margin-top: 100rpx;
 }
-.wrap .dataMaskSub cover-view.data-v-670924cb:first-child {
+.wrap .dataMaskSub cover-view.data-v-4219aa94:first-child {
   font-size: 100rpx;
 }
-.wrap .dataMaskSub cover-view.data-v-670924cb:last-child {
+.wrap .dataMaskSub cover-view.data-v-4219aa94:last-child {
   font-size: 32rpx;
 }
-.wrap .speed_distance.data-v-670924cb {
+.wrap .speed_distance.data-v-4219aa94 {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
   margin-top: 2vh;
 }
-.wrap .speed_distance .speed.data-v-670924cb {
+.wrap .speed_distance .speed.data-v-4219aa94 {
   -webkit-box-flex: 1;
   -webkit-flex: 1;
           flex: 1;
@@ -181,7 +193,7 @@
   font-size: 36rpx;
   line-height: 1.2;
 }
-.wrap .dataMaskFooter.data-v-670924cb {
+.wrap .dataMaskFooter.data-v-4219aa94 {
   -webkit-justify-content: space-around;
           justify-content: space-around;
   -webkit-box-align: center;
@@ -194,24 +206,24 @@
   position: absolute;
   bottom: 311rpx;
 }
-.wrap .dataMaskFooter .runing_btn.data-v-670924cb {
+.wrap .dataMaskFooter .runing_btn.data-v-4219aa94 {
   width: 120rpx;
   height: 120rpx;
 }
-.wrap .dataMaskFooter .showMap.data-v-670924cb {
+.wrap .dataMaskFooter .showMap.data-v-4219aa94 {
   width: 80rpx;
   height: 80rpx;
 }
-.wrap .animate__zoomOut.mask.data-v-670924cb {
+.wrap .animate__zoomOut.mask.data-v-4219aa94 {
   visibility: hidden;
 }
-.animate__animated.animate__backOutRight.data-v-670924cb,
-.animate__animated.animate__slideInLeft.data-v-670924cb,
-.animate__animated.animate__slideOutRight.data-v-670924cb {
+.animate__animated.animate__backOutRight.data-v-4219aa94,
+.animate__animated.animate__slideInLeft.data-v-4219aa94,
+.animate__animated.animate__slideOutRight.data-v-4219aa94 {
   --animate-duration: 1s;
 }
-.animate__animated.animate__backInLeft.data-v-670924cb,
-.animate__backOutLeft.data-v-670924cb {
+.animate__animated.animate__backInLeft.data-v-4219aa94,
+.animate__backOutLeft.data-v-4219aa94 {
   --animate-duration: 1s;
   --animate-delay: 0s;
 }

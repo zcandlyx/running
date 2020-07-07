@@ -73,6 +73,11 @@
 				<image @tap="toFeedBack" class="medal-icon" src="https://i.loli.net/2020/05/13/Fatxd1ASjkYXc2y.png"></image>
 			</view>
 			<view class="setting-line"></view>
+			<view @tap="changeBg"  class="setting-item">
+				<view class="medal-title">切换背景</view>
+				<image class="medal-icon" src="https://i.loli.net/2020/05/13/Fatxd1ASjkYXc2y.png"></image>
+			</view>
+			<view class="setting-line"></view>
 		</view>
 		<view class="vernote">跑步吧小程序</view>
 	</view>
@@ -152,7 +157,11 @@
 				})
 			},
 
-
+			changeBg(){
+				uni.navigateTo({
+					url:"./setting/index"
+				})
+			}
 
 
 		},

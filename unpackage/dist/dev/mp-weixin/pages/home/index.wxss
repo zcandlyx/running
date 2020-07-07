@@ -24,6 +24,109 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.bg {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  z-index: -1;
+  top: 0;
+}
+.wrap {
+  height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+}
+.wrap .module-box {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+}
+.wrap .module {
+  width: 95%;
+  border-radius: 10rpx;
+  margin: 38vh auto 0;
+  padding: 20rpx;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+.wrap .module .title {
+  padding: 0rpx 0 10rpx;
+  font-size: 40rpx;
+  color: #01BD03;
+  text-align: center;
+  border-bottom: 4rpx solid #01BD03;
+  position: relative;
+}
+.wrap .module .title text {
+  position: absolute;
+  right: 10rpx;
+  font-size: 24rpx;
+  color: #01BD03;
+  font-weight: bold;
+}
+.wrap .avatar-box {
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 20rpx auto;
+}
+.wrap open-data {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.wrap .show-box {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+}
+.wrap .show-box-sub {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+}
+.wrap .show-box-sub text:first-child {
+  color: #01BD03;
+  font-size: 36rpx;
+}
+.wrap .share {
+  width: 30%;
+  padding: 10rpx;
+  background-color: #01BD03;
+  color: #fff;
+  line-height: 1.5;
+  text-align: center;
+  font-size: bolder;
+  border-radius: 10rpx;
+  margin: 20rpx auto 0;
+}
+.wrap button {
+  width: 50%;
+  margin-top: 20rpx;
+  background-color: #01BD03;
+  color: #fff;
+}
 .position_btn {
   width: calc(100% - 44rpx);
   height: 86rpx;
@@ -37,6 +140,9 @@
   background: #8dc63f;
 }
 .position_btn::after {
+  display: none;
+}
+[v-cloak] {
   display: none;
 }
 

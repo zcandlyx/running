@@ -1,8 +1,10 @@
 <template>
 	<view class="wrap">
+
 		<!-- <cu-custom :isBack="true">
 			<block slot="content">跑步吧</block>
 		</cu-custom> -->
+
 		<view class="map-box">
 			<map style="width: 100%; height: 100%;" :polyline="polyline" :circles="circles" :show-location="true" :latitude="latitude"
 			 :longitude="longitude" subkey="3WUBZ-VQF6J-RIYFS-FXCZC-5FFSO-S2FFO"></map>
@@ -35,13 +37,13 @@
 				<cover-view style="line-height:50rpx;color: #758197; ">提升体验，随心而动</cover-view>
 			</cover-view>
 			<cover-view class="dataMaskFooter" v-if="isRuning">
-				<cover-image class="showMap" src="https://i.loli.net/2020/05/12/JjvgAWBXZdh9Ofa.png" @tap="hidden_data_mask"></cover-image>
-				<cover-image class="runing_btn" src="https://i.loli.net/2020/05/12/pY95mXg6wjsxISH.png" mode="" @tap="pauseRuning"></cover-image>
-				<cover-image class="showMap" src="https://i.loli.net/2020/05/12/2QC4XYkRG7jT8Hc.png" @tap="setting"></cover-image>
+				<cover-image class="showMap" src="@/static/image/map.png" @tap="hidden_data_mask"></cover-image>
+				<cover-image class="runing_btn" src="@/static/image/start.png" mode="" @tap="pauseRuning"></cover-image>
+				<cover-image class="showMap" src="@/static/image/setting.png" @tap="setting"></cover-image>
 			</cover-view>
 			<cover-view class="dataMaskFooter" v-else>
-				<cover-image class="showMap" src="https://i.loli.net/2020/05/12/JjvgAWBXZdh9Ofa.png" @tap="hidden_data_mask"></cover-image>
-				<cover-image class="runing_btn" src="https://i.loli.net/2020/05/12/otgSwrXH8LPGEbc.png" mode="" @tap="startRuning">
+				<cover-image class="showMap" src="@/static/image/map.png" @tap="hidden_data_mask"></cover-image>
+				<cover-image class="runing_btn" src="@/static/image/pause.png" mode="" @tap="startRuning">
 				</cover-image>
 				<cover-image class="showMap" src="@/static/image/over.png" @tap="overRunning"></cover-image>
 			</cover-view>
@@ -51,12 +53,14 @@
 
 		<!-- 是否开始的蒙层 -->
 		<cover-view class="mask animate__animated" :class="num>0?'':animation">
+			<cover-view>请开始之前打开手机gps定位,否则可能会出现意料之外的现象</cover-view>
 			<cover-view v-if="beforeStart" @tap="start_before">开始</cover-view>
 			<cover-view v-else>{{num}}</cover-view>
 		</cover-view>
 		<!-- <cover-view class="controls-title">
 		</cover-view> -->
-
+		<neil-modal :show="show" @close="closeModal" title="结束跑步" content="确定结束吗" @cancel="bindBtn('cancel')" @confirm="bindBtn('confirm')">
+		</neil-modal>
 	</view>
 </template>
 
@@ -65,6 +69,9 @@
 	// console.log(moment.format())
 	let slef;
 	export default {
+		// components: {
+		// 	neilModal
+		// },
 		data() {
 			return {
 				isStart: true, //用来辨别是否首次开始
@@ -94,8 +101,10 @@
 				dataMaskHidden: false,
 				pointerEvents: 'auto',
 				mapPointerEvents: "none",
-				positionTimer: {},// 获取位置的timer 
-				startTime: 0
+				positionTimer: {}, // 获取位置的timer 
+				startTime: 0,
+				show: false,
+				stepAuth: true
 				// styleObject: {
 				// 	pointerEvents: 'auto'
 				// }
@@ -119,9 +128,11 @@
 			self = this
 			uni.getLocation({
 				success() {
+					self.stepAuth = true
 					console.log("获取权限")
 				},
 				fail() {
+					self.stepAuth = false
 					uni.showToast({
 						title: "请授权,否则无法继续"
 					})
@@ -195,8 +206,12 @@
 			// #endif
 		},
 		methods: {
+
 			/* 倒计时 */
 			start_before() {
+				if (!this.stepAuth) {
+					return
+				}
 				this.beforeStart = false; //开始定位并且倒计时开始
 				this.timer = setInterval(() => {
 					this.num--;
@@ -232,12 +247,14 @@
 				// })
 				// // #endif
 			},
+
 			setting() {
 				uni.showToast({
 					title: "此功能暂未开放",
 					icon: "none"
 				})
 			},
+
 			/* 显示地图 */
 			hidden_data_mask() {
 				this.dataMaskHidden = true;
@@ -245,6 +262,7 @@
 				this.mapPointerEvents = "auto"
 				console.log("hidden_data_mask", this.style)
 			},
+
 			/* 跑步开始 */
 			startRuning() {
 				console.log(this.isRuning)
@@ -252,6 +270,7 @@
 				this.monitor()
 				this.coutDown()
 			},
+
 			/* 隐藏地图 */
 			hiddenMap() {
 				this.dataMaskHidden = false;
@@ -260,6 +279,7 @@
 				this.mapPointerEvents = "none"
 				console.log("hiddenMap", this.style)
 			},
+
 			/* 获取当前位置 */
 			getPosition() {
 
@@ -290,6 +310,7 @@
 				});
 
 			},
+
 			/* 监测 */
 			monitor() {
 				// #ifdef MP-WEIXIN
@@ -304,8 +325,8 @@
 							const second = (currentTime - self.startTime) / 60000;
 							self.horizontalAccuracy = Number(self.GetDistance(self.startLatitude, self.startLongitude, latitude,
 								longitude)).toFixed(2);
-							self.speed = (second / self.horizontalAccuracy).toFixed(2);
-							console.log("当前速度", self.speed);
+							self.speed = (second / parseFloat(self.horizontalAccuracy)).toFixed(2) === "Infinity" ? Number(0).toFixed(2) :
+								(second / parseFloat(self.horizontalAccuracy)).toFixed(2);
 						}
 					});
 				}, 2000)
@@ -329,6 +350,7 @@
 				// })
 				// #endif
 			},
+
 			/* 暂停跑步 */
 			pauseRuning() {
 				this.isRuning = !this.isRuning;
@@ -349,6 +371,7 @@
 				// })
 				// #endif
 			},
+
 			/* 版本比较 */
 			compareVersion(v1, v2) {
 				v1 = v1.split('.')
@@ -375,6 +398,7 @@
 
 				return 0
 			},
+
 			/* 计算运动距离,单位为公里 */
 			GetDistance(lat1, lng1, lat2, lng2) {
 				console.log(lat1, lng1, lat2, lng2)
@@ -388,6 +412,7 @@
 				s = Math.round(s * 10000) / 10000;
 				return s;
 			},
+
 			/* 秒表 */
 			coutDown() {
 				this.cutDownTimer = setInterval(function() {
@@ -420,9 +445,26 @@
 
 				}, 1000);
 			},
+
 			/* 结束跑步 */
-			overRunning(){
-				console.log(this.polyline)
+			overRunning() {
+				console.log(this.polyline);
+				this.show = true;
+				this.pauseRuning()
+			},
+
+			//关闭弹框
+			closeModal() {
+				this.show = false;
+			},
+
+			//询问
+			bindBtn(val) {
+				if (val === "confirm") {
+					console.log("结束");
+				} else {
+					console.log("取消")
+				}
 			}
 		}
 
@@ -447,12 +489,23 @@
 		justify-content: center;
 		align-items: center;
 		pointer-events: none;
+		font-size: 36rpx;
 
-		cover-view {
+		cover-view:first-child {
+			padding: 0 10rpx;
+			font-size: 28rpx;
+			line-height: 1.5;
+			position: fixed;
+			top: 5vh;
+			text-align: left;
+			color: #fff;
+			white-space: normal;
+		}
+
+		cover-view:nth-child(2) {
 			width: 150rpx;
 			height: 150rpx;
 			line-height: 150rpx;
-			font-size: 36rpx;
 			text-align: center;
 			background-color: #fff;
 			color: $running-theme-color;
@@ -503,7 +556,8 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-
+			color: #fff;
+			background-color: rgba($color: #000000, $alpha: 0.8);
 		}
 
 

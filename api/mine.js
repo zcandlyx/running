@@ -34,10 +34,38 @@ function inquire(data) {
 		url: "/user/inquire"
 	})
 }
+
+function getRanking(data) {
+	return http({
+		method: "GET",
+		data: data,
+		url: "/user/ranking"
+	})
+}
+
+function deposit_step(data) {
+	return http({
+		method: "POST",
+		data: data,
+		url: "/user/deposit_step"
+	})
+}
+
+function step_ranking(data){
+	return http({
+		method: "GET",
+		url: "/user/step_ranking",
+		data
+	})
+}
+
 // function get
 export {
 	getOpenId,
 	getStep,
 	register,
-	inquire
+	inquire,
+	getRanking,
+	deposit_step,
+	step_ranking
 }
