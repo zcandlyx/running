@@ -7,7 +7,9 @@
 			<view class="module">
 				<view class="title">
 					我的运动步数
-					<text @tap="goStepRanking" v-if="isGetStep">查看总排行</text>
+					<button open-type="share" v-if="isGetStep">
+						好友PK
+					</button>
 				</view>
 				<view class="avatar-box">
 					<open-data type="userAvatarUrl"></open-data>
@@ -39,11 +41,9 @@
 
 
 				</view>
-				<button open-type="share" class="share" v-if="isGetStep">
-					点击转发
-				</button>
+				<button type="default" class="share" @tap="goStepRanking" v-if="isGetStep">查看总排行</button>
 			</view>
-			<button type="default" @tap="getStep" v-if="step===0">点击获取</button>
+			<button type="default" @tap="getStep" v-if="!isGetStep">点击获取</button>
 
 		</view>
 		<!-- <image class="bg" :style="[{top:CustomBar + 'px'}]" :src="bg" mode=""></image> -->
@@ -81,26 +81,48 @@
 		},
 		onShow() {
 			self = this;
+			// wx.updateShareMenu({
+			// 	withShareTicket: true,
+			// 	success(res) {
+			// 		console.log("更新成功", res)
+			// 	}
+			// })
 			uni.getSystemInfo({
 				fail(error) {
 					console.log(error)
 				},
 				success({ system }) {
-					console.log(system, /iOS/.test(system))
-					if (!/iOS/.test(system)) {
-						wx.showShareMenu({
-							menus: ["shareAppMessage", "shareTimeline"],
-							success(res) {
-								console.log(res)
-							},
-							fail(error) {
-								console.log(error)
-							}
-						})
-					}
+					wx.showShareMenu({
+						withShareTicket: true,
+						menus: ['shareAppMessage', 'shareTimeline'],
+						success(res) {
+							console.log(res)
+						},
+						fail(error) {
+							console.log(error)
+						}
+					})
+					// console.log(system, /iOS/.test(system))
+					// if (!/iOS/.test(system)) {
+					// 	wx.showShareMenu({
+					// 		withShareTicket: true,
+					// 		menus: ['shareAppMessage', 'shareTimeline']
+					// 		success(res) {
+					// 			console.log(res)
+					// 		},
+					// 		fail(error) {
+					// 			console.log(error)
+					// 		}
+					// 	})
+					// }
 				}
 			})
 		},
+		
+		onLanuch({shareTicket}){
+			
+		},
+		
 		mounted() {
 			console.log(this.bg)
 			/* 获取是否已经拥有权限 */
@@ -121,6 +143,12 @@
 			return {
 				title: `我今天走了${this.step}步,快来看看自己的步数吧`,
 				path: '/pages/home/index'
+			}
+		},
+		onShareTimeLine: function(res) {
+			return {
+				title: `我今天走了${this.step}步,快来看看自己的步数吧`,
+				// path: '/pages/home/index'
 			}
 		},
 		methods: {
@@ -329,12 +357,18 @@
 				border-bottom: 4rpx solid $color;
 				position: relative;
 
-				text {
+				button {
+					padding: 0;
+					margin-top: 0;
+					width: 120rpx;
 					position: absolute;
 					right: 10rpx;
 					font-size: 24rpx;
-					color: $color;
+					color: #fff;
 					font-weight: bold;
+					top: 0rpx;
+					line-height: 2;
+					// top: ;
 				}
 			}
 		}
@@ -373,7 +407,7 @@
 		}
 
 		.share {
-			width: 30%;
+			width: 40%;
 			padding: 10rpx;
 			background-color: $color;
 			color: #fff;
@@ -381,7 +415,7 @@
 			text-align: center;
 			font-size: bolder;
 			border-radius: 10rpx;
-			margin: 20rpx auto 0;
+			margin: 35rpx auto 0;
 		}
 
 		button {

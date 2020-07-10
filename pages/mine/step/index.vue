@@ -288,14 +288,16 @@
 
 	.qiun-charts {
 		width: 100%;
-		height: 500upx;
+		height: 610upx;
+		overflow: hidden;
 		// margin-top: 10rpx;
 		background-color: #FFFFFF;
 	}
 
 	.charts {
+		margin-top: 10upx;
 		width: 750upx;
-		height: 500upx;
+		height: 600upx;
 		background-color: #FFFFFF;
 	}
 </style>

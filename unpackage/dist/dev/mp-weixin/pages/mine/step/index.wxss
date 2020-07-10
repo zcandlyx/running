@@ -73,12 +73,14 @@
 }
 .qiun-charts {
   width: 100%;
-  height: 500rpx;
+  height: 610rpx;
+  overflow: hidden;
   background-color: #FFFFFF;
 }
 .charts {
+  margin-top: 10rpx;
   width: 750rpx;
-  height: 500rpx;
+  height: 600rpx;
   background-color: #FFFFFF;
 }
 

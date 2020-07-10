@@ -8,7 +8,7 @@
 				<image :src="weatherImg" mode=""></image>
 				<text>{{weather}}</text>
 			</view>
-			<text class="weather" v-else @tap="getWeather">点击获取天气信息</text>
+			<text class="weather" v-else @tap="getWeather">点击获取位置信息</text>
 			<view class="step" v-if="stepAuth">
 				今日步数:{{currentStep}}
 			</view>
@@ -40,7 +40,7 @@
 				stepAuth: false
 			};
 		},
-
+		
 		created() {
 			self = this;
 			uni.getSetting({

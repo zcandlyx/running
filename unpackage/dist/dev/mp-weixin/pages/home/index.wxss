@@ -61,12 +61,17 @@
   border-bottom: 4rpx solid #01BD03;
   position: relative;
 }
-.wrap .module .title text {
+.wrap .module .title button {
+  padding: 0;
+  margin-top: 0;
+  width: 120rpx;
   position: absolute;
   right: 10rpx;
   font-size: 24rpx;
-  color: #01BD03;
+  color: #fff;
   font-weight: bold;
+  top: 0rpx;
+  line-height: 2;
 }
 .wrap .avatar-box {
   width: 150rpx;
@@ -111,7 +116,7 @@
   font-size: 36rpx;
 }
 .wrap .share {
-  width: 30%;
+  width: 40%;
   padding: 10rpx;
   background-color: #01BD03;
   color: #fff;
@@ -119,7 +124,7 @@
   text-align: center;
   font-size: bolder;
   border-radius: 10rpx;
-  margin: 20rpx auto 0;
+  margin: 35rpx auto 0;
 }
 .wrap button {
   width: 50%;

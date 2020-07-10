@@ -94,7 +94,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components = {
   neilModal: function() {
-    return __webpack_require__.e(/*! import() | components/neil-modal/neil-modal */ "components/neil-modal/neil-modal").then(__webpack_require__.bind(null, /*! @/components/neil-modal/neil-modal.vue */ 314))
+    return __webpack_require__.e(/*! import() | components/neil-modal/neil-modal */ "components/neil-modal/neil-modal").then(__webpack_require__.bind(null, /*! @/components/neil-modal/neil-modal.vue */ 315))
   }
 }
 var render = function() {
@@ -255,15 +255,43 @@ var _mine = __webpack_require__(/*! @/api/mine.js */ 11);function _interopRequir
 //
 //
 var self;var _default = { data: function data() {return { isPositon: false, //是否已经位置授权
-      modalName: null, step: 0, ranking: 0, total: 0, CustomBar: this.CustomBar, show: false, isGetStep: false };}, computed: _objectSpread({}, (0, _vuex.mapGetters)({ bg: "home_bg" }), {}, (0, _vuex.mapState)("user", { openId: function openId(state) {return state.openId;} }), {}, (0, _vuex.mapState)("user", { userInfo: function userInfo(state) {return state.userInfo;} })), onShow: function onShow() {self = this;uni.getSystemInfo({ fail: function fail(error) {console.log(error);}, success: function success(_ref) {var system = _ref.system;console.log(system, /iOS/.test(system));if (!/iOS/.test(system)) {wx.showShareMenu({ menus: ["shareAppMessage", "shareTimeline"], success: function success(res) {console.log(res);}, fail: function fail(error) {console.log(error);} });}} });}, mounted: function mounted() {console.log(this.bg); /* 获取是否已经拥有权限 */uni.getSetting({ success: function success(_ref2) {var authSetting = _ref2.authSetting;console.log(authSetting);if (authSetting["scope.werun"]) {self.getStep();}}, fail: function fail() {console.log("获取失败");} });console.log("userinfo", this.userInfo);}, onShareAppMessage: function onShareAppMessage(res) {return { title: "\u6211\u4ECA\u5929\u8D70\u4E86".concat(this.step, "\u6B65,\u5FEB\u6765\u770B\u770B\u81EA\u5DF1\u7684\u6B65\u6570\u5427"),
+      modalName: null, step: 0, ranking: 0, total: 0, CustomBar: this.CustomBar, show: false, isGetStep: false };}, computed: _objectSpread({}, (0, _vuex.mapGetters)({ bg: "home_bg" }), {}, (0, _vuex.mapState)("user", { openId: function openId(state) {return state.openId;} }), {}, (0, _vuex.mapState)("user", { userInfo: function userInfo(state) {return state.userInfo;} })), onShow: function onShow() {self = this; // wx.updateShareMenu({
+    // 	withShareTicket: true,
+    // 	success(res) {
+    // 		console.log("更新成功", res)
+    // 	}
+    // })
+    uni.getSystemInfo({ fail: function fail(error) {console.log(error);}, success: function success(_ref) {var system = _ref.system;wx.showShareMenu({ withShareTicket: true, menus: ['shareAppMessage', 'shareTimeline'], success: function success(res) {console.log(res);}, fail: function fail(error) {console.log(error);} }); // console.log(system, /iOS/.test(system))
+        // if (!/iOS/.test(system)) {
+        // 	wx.showShareMenu({
+        // 		withShareTicket: true,
+        // 		menus: ['shareAppMessage', 'shareTimeline']
+        // 		success(res) {
+        // 			console.log(res)
+        // 		},
+        // 		fail(error) {
+        // 			console.log(error)
+        // 		}
+        // 	})
+        // }
+      } });}, onLanuch: function onLanuch(_ref2) {var shareTicket = _ref2.shareTicket;}, mounted: function mounted() {console.log(this.bg); /* 获取是否已经拥有权限 */uni.getSetting({ success: function success(_ref3) {var authSetting = _ref3.authSetting;console.log(authSetting);if (authSetting["scope.werun"]) {self.getStep();}}, fail: function fail() {console.log("获取失败");} });console.log("userinfo", this.userInfo);},
+  onShareAppMessage: function onShareAppMessage(res) {
+    return {
+      title: "\u6211\u4ECA\u5929\u8D70\u4E86".concat(this.step, "\u6B65,\u5FEB\u6765\u770B\u770B\u81EA\u5DF1\u7684\u6B65\u6570\u5427"),
       path: '/pages/home/index' };
 
+  },
+  onShareTimeLine: function onShareTimeLine(res) {
+    return {
+      title: "\u6211\u4ECA\u5929\u8D70\u4E86".concat(this.step, "\u6B65,\u5FEB\u6765\u770B\u770B\u81EA\u5DF1\u7684\u6B65\u6570\u5427")
+      // path: '/pages/home/index'
+    };
   },
   methods: {
     openSetting: function openSetting() {
       /* 打开权限 */
       uni.openSetting({
-        success: function success(_ref3) {var authSetting = _ref3.authSetting;
+        success: function success(_ref4) {var authSetting = _ref4.authSetting;
           // console.log(authSetting.scope.userLocationBackground)
           if (!authSetting["scope.userLocationBackground"]) {
             uni.showToast({

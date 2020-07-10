@@ -126,7 +126,7 @@
 <style>
 	@import "colorui/main.css";
 	@import "colorui/icon.css";
-
+	@import "static/style/style.css";
 	@import "colorui/animation.css";
 
 	page {

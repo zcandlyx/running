@@ -8586,7 +8586,7 @@ http;exports.default = _default;
 Object.defineProperty(exports, "__esModule", { value: true });exports.host = void 0;var host;
 // let host = "https://tianqi.quanquankeji.cn"
 exports.host = host;if (true) {
-  // host = "http://127.0.0.1:8000/api"
+  // host = "http://192.168.1.31:8000/api"
   exports.host = host = "https://azhen.work/wx/api";
 } else {}
 
@@ -46086,6 +46086,52 @@ function changeBg(data) {
     method: "POST",
     data: data,
     url: "/user/changeBackground"
+    // url: "http://127.0.0.1:8000/api/user/getKey"
+  });
+}
+
+/***/ }),
+/* 297 */,
+/* 298 */,
+/* 299 */,
+/* 300 */,
+/* 301 */,
+/* 302 */,
+/* 303 */,
+/* 304 */,
+/* 305 */
+/*!************************************!*\
+  !*** E:/学习/running/api/ranking.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.click = click;exports.sick = sick;exports.like = like;var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request.js */ 12));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+function click(data) {
+  return (0, _request.default)({
+    method: "POST",
+    data: data,
+    url: "/like/click"
+    // url: "http://127.0.0.1:8000/api/user/getKey"
+  });
+}
+
+function sick(data) {
+  return (0, _request.default)({
+    method: "POST",
+    data: data,
+    url: "/like/sick"
+    // url: "http://127.0.0.1:8000/api/user/getKey"
+  });
+}
+
+function like(data) {
+  return (0, _request.default)({
+    method: "POST",
+    data: data,
+    url: "/like/click"
     // url: "http://127.0.0.1:8000/api/user/getKey"
   });
 }
