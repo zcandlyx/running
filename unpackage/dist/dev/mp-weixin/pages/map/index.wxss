@@ -65,7 +65,8 @@
   text-align: center;
   background-color: #fff;
   color: #8dc63f;
-  border-radius: 50%;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
 }
 .data_mask.data-v-4219aa94 {
   position: fixed;
@@ -88,7 +89,8 @@
   right: 0;
   bottom: 20rpx;
   padding: 20rpx;
-  border-radius: 20rpx;
+  -webkit-border-radius: 20rpx;
+          border-radius: 20rpx;
   margin: 0 auto;
   color: #fff;
   text-align: left;
@@ -143,7 +145,8 @@
   width: 80rpx;
   height: 80rpx;
   background-color: #fff;
-  border-radius: 50%;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
 }
 .wrap .geolocation_control.data-v-4219aa94 {
   width: 50rpx;
@@ -151,7 +154,8 @@
 }
 .wrap .hiddenMap.data-v-4219aa94 {
   background-color: rgba(0, 0, 0, 0.8);
-  border-radius: 50%;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
   width: 120rpx;
   height: 120rpx;
   position: fixed;

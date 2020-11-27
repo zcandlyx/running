@@ -1,8 +1,7 @@
 {
   "pages": [
+    "pages/login/index",
     "pages/home/index",
-    "pages/index/index",
-    "pages/chart/index",
     "pages/map/index",
     "pages/mine/index",
     "pages/running/index",
@@ -10,7 +9,12 @@
     "pages/mine/step/index",
     "pages/mine/map/index",
     "pages/mine/setting/index",
-    "pages/stepRanking/index"
+    "pages/stepRanking/index",
+    "pages/web-view/index/index",
+    "pages/test/index",
+    "pages/index/index",
+    "pages/chart/index",
+    "pages/list/index"
   ],
   "subPackages": [],
   "window": {
@@ -52,6 +56,5 @@
   },
   "usingComponents": {
     "cu-custom": "/colorui/components/cu-custom"
-  },
-  "sitemapLocation": "sitemap9.json"
+  }
 }

@@ -46,7 +46,8 @@
   padding: 20rpx 40rpx 20rpx 20rpx;
   margin-top: 120rpx;
   text-align: left;
-  border-radius: 60rpx;
+  -webkit-border-radius: 60rpx;
+          border-radius: 60rpx;
   background-color: #fff;
 }
 .wrap .weather {
@@ -58,7 +59,8 @@
   -webkit-align-items: center;
           align-items: center;
   padding: 10rpx 20rpx;
-  border-radius: 60rpx;
+  -webkit-border-radius: 60rpx;
+          border-radius: 60rpx;
   background-color: #fff;
   margin-top: 20rpx;
   left: 20rpx;
@@ -88,7 +90,8 @@
           align-items: center;
   margin: 72vh auto 0;
   color: #fff;
-  border-radius: 50%;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
   background-color: #8dc63f;
 }
 .wrap .running_btn image {

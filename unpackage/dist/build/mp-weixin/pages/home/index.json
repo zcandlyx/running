@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "跑步吧",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "neil-modal": "/components/neil-modal/neil-modal"
+  }
+}

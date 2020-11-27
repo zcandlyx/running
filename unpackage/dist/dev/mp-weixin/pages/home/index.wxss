@@ -48,7 +48,8 @@
 }
 .wrap .module {
   width: 95%;
-  border-radius: 10rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
   margin: 38vh auto 0;
   padding: 20rpx;
   background-color: rgba(255, 255, 255, 0.8);
@@ -56,9 +57,9 @@
 .wrap .module .title {
   padding: 0rpx 0 10rpx;
   font-size: 40rpx;
-  color: #01BD03;
+  color: #01bd03;
   text-align: center;
-  border-bottom: 4rpx solid #01BD03;
+  border-bottom: 4rpx solid #01bd03;
   position: relative;
 }
 .wrap .module .title button {
@@ -76,7 +77,8 @@
 .wrap .avatar-box {
   width: 150rpx;
   height: 150rpx;
-  border-radius: 50%;
+  -webkit-border-radius: 50%;
+          border-radius: 50%;
   overflow: hidden;
   margin: 20rpx auto;
 }
@@ -112,24 +114,25 @@
           align-items: center;
 }
 .wrap .show-box-sub text:first-child {
-  color: #01BD03;
+  color: #01bd03;
   font-size: 36rpx;
 }
 .wrap .share {
   width: 40%;
   padding: 10rpx;
-  background-color: #01BD03;
+  background-color: #01bd03;
   color: #fff;
   line-height: 1.5;
   text-align: center;
   font-size: bolder;
-  border-radius: 10rpx;
+  -webkit-border-radius: 10rpx;
+          border-radius: 10rpx;
   margin: 35rpx auto 0;
 }
 .wrap button {
   width: 50%;
   margin-top: 20rpx;
-  background-color: #01BD03;
+  background-color: #01bd03;
   color: #fff;
 }
 .position_btn {

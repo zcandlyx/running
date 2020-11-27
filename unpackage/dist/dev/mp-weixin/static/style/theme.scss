@@ -1,0 +1,34 @@
+[data-theme='pink'] {
+	background-color: pink;
+	color: #fff;
+}
+
+[data-theme='blue'] {
+	background-color: blue;
+	color: #fff;
+}
+
+.border {
+	position: relative;
+}
+
+.border::after {
+	position: absolute;
+	content: '';
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 2upx;
+	background-color: #eee;
+	transform: scaleY(0.5);
+	transform-origin: left top;  
+}
+
+@media screen and (min-device-pixel-ratio: 3), (-webkit-min-device-pixel-ratio: 3) {
+	.border::after {
+		left: 0;
+		right: 0;
+		height: 2upx;
+		transform: scaleY(0.33);
+	}
+}

@@ -36,10 +36,6 @@ export default {
 		}
 	},
 	getSessionKey(state) {
-		// let sessionKey = state.user.sessionKey;
-		// if (sessionKey) {
-		// 	return sessionKey;
-		// }
 		let sessionKey = uni.getStorageSync('sessionKey');
 		console.log(Boolean(sessionKey))
 		if (sessionKey) {
@@ -64,5 +60,8 @@ export default {
 		if (bg) {
 			return bg
 		}
+	},
+	appTheme(state) {
+		return state.setting.appTheme
 	}
 }
