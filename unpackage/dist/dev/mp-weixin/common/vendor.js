@@ -2538,39 +2538,30 @@ uni$1;exports.default = _default;
 
 /***/ }),
 
-/***/ 106:
-/*!************************************!*\
-  !*** E:/学习/running/api/ranking.js ***!
-  \************************************/
+/***/ 103:
+/*!**************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/running/api/material.js ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.click = click;exports.sick = sick;exports.like = like;var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request.js */ 12));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+Object.defineProperty(exports, "__esModule", { value: true });exports.getBg = getBg;exports.changeBg = changeBg;var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request.js */ 12));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
-function click(data) {
+function getBg(data) {
   return (0, _request.default)({
-    method: "POST",
+    method: "GET",
     data: data,
-    url: "/like/click"
+    url: "/material"
     // url: "http://127.0.0.1:8000/api/user/getKey"
   });
 }
 
-function sick(data) {
+function changeBg(data) {
   return (0, _request.default)({
     method: "POST",
     data: data,
-    url: "/like/sick"
-    // url: "http://127.0.0.1:8000/api/user/getKey"
-  });
-}
-
-function like(data) {
-  return (0, _request.default)({
-    method: "POST",
-    data: data,
-    url: "/like/click"
+    url: "/user/changeBackground"
     // url: "http://127.0.0.1:8000/api/user/getKey"
   });
 }
@@ -2578,9 +2569,9 @@ function like(data) {
 /***/ }),
 
 /***/ 11:
-/*!*********************************!*\
-  !*** E:/学习/running/api/mine.js ***!
-  \*********************************/
+/*!**********************************************************!*\
+  !*** C:/Users/Administrator/Desktop/running/api/mine.js ***!
+  \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2650,10 +2641,49 @@ function step_ranking(data) {
 
 /***/ }),
 
+/***/ 112:
+/*!*************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/running/api/ranking.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.click = click;exports.sick = sick;exports.like = like;var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request.js */ 12));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+function click(data) {
+  return (0, _request.default)({
+    method: "POST",
+    data: data,
+    url: "/like/click"
+    // url: "http://127.0.0.1:8000/api/user/getKey"
+  });
+}
+
+function sick(data) {
+  return (0, _request.default)({
+    method: "POST",
+    data: data,
+    url: "/like/sick"
+    // url: "http://127.0.0.1:8000/api/user/getKey"
+  });
+}
+
+function like(data) {
+  return (0, _request.default)({
+    method: "POST",
+    data: data,
+    url: "/like/click"
+    // url: "http://127.0.0.1:8000/api/user/getKey"
+  });
+}
+
+/***/ }),
+
 /***/ 12:
-/*!**************************************!*\
-  !*** E:/学习/running/utils/request.js ***!
-  \**************************************/
+/*!***************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/running/utils/request.js ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2730,9 +2760,9 @@ http;exports.default = _default;
 /***/ }),
 
 /***/ 13:
-/*!**************************************!*\
-  !*** E:/学习/running/utils/setting.js ***!
-  \**************************************/
+/*!***************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/running/utils/setting.js ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2876,9 +2906,9 @@ function normalizeComponent (
 /***/ }),
 
 /***/ 17:
-/*!************************************!*\
-  !*** E:/学习/running/store/index.js ***!
-  \************************************/
+/*!*************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/running/store/index.js ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4019,9 +4049,9 @@ var index = {
 /***/ }),
 
 /***/ 19:
-/*!******************************************!*\
-  !*** E:/学习/running/store/module/user.js ***!
-  \******************************************/
+/*!*******************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/running/store/module/user.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10182,9 +10212,9 @@ internalMixin(Vue);
 /***/ }),
 
 /***/ 20:
-/*!****************************************!*\
-  !*** E:/学习/running/store/module/bg.js ***!
-  \****************************************/
+/*!*****************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/running/store/module/bg.js ***!
+  \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10218,9 +10248,9 @@ var actions = {};var _default =
 /***/ }),
 
 /***/ 21:
-/*!*********************************************!*\
-  !*** E:/学习/running/store/module/running.js ***!
-  \*********************************************/
+/*!**********************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/running/store/module/running.js ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10307,9 +10337,9 @@ var actions = {};var _default =
 /***/ }),
 
 /***/ 22:
-/*!*************************************!*\
-  !*** E:/学习/running/store/getter.js ***!
-  \*************************************/
+/*!**************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/running/store/getter.js ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10385,9 +10415,9 @@ var actions = {};var _default =
 /***/ }),
 
 /***/ 23:
-/*!*********************************************!*\
-  !*** E:/学习/running/store/module/setting.js ***!
-  \*********************************************/
+/*!**********************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/running/store/module/setting.js ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10444,15 +10474,15 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 38:
-/*!*************************************!*\
-  !*** E:/学习/running/utils/common.js ***!
-  \*************************************/
+/***/ 36:
+/*!**************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/running/utils/common.js ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.isLogin = isLogin;exports.checkLogin = checkLogin;var _index = _interopRequireDefault(__webpack_require__(/*! @/store/index.js */ 17));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.isLogin = isLogin;exports.checkLogin = checkLogin;exports.getDomInfo = getDomInfo;var _index = _interopRequireDefault(__webpack_require__(/*! @/store/index.js */ 17));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 // 实现判断登陆的共有方法,为了避免缓存问题,使用vuex,不在使用缓存
 function isLogin() {
   var userObj = _index.default.state.user.userInfo || {};
@@ -10484,14 +10514,26 @@ function checkLogin(fn) {
     fn();
   }
 }
+
+function getDomInfo(name, vm) {
+  return new Promise(function (reslove, reject) {
+    var query = uni.createSelectorQuery().in(vm);
+    query.
+    select(name).
+    fields({ size: true, rect: true }, function (data) {
+      reslove(data);
+    }).
+    exec();
+  });
+}
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
 /***/ 4:
-/*!********************************!*\
-  !*** E:/学习/running/pages.json ***!
-  \********************************/
+/*!*********************************************************!*\
+  !*** C:/Users/Administrator/Desktop/running/pages.json ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -10499,10 +10541,10 @@ function checkLogin(fn) {
 
 /***/ }),
 
-/***/ 63:
-/*!*************************************!*\
-  !*** E:/学习/running/utils/decode.js ***!
-  \*************************************/
+/***/ 69:
+/*!**************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/running/utils/decode.js ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -10536,10 +10578,10 @@ function checkLogin(fn) {
 
 /***/ }),
 
-/***/ 64:
-/*!*****************************************!*\
-  !*** E:/学习/running/static/icon/100.png ***!
-  \*****************************************/
+/***/ 70:
+/*!******************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/running/static/icon/100.png ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -10547,10 +10589,10 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkBAMAAACC
 
 /***/ }),
 
-/***/ 65:
-/*!************************************!*\
-  !*** E:/学习/running/api/weather.js ***!
-  \************************************/
+/***/ 71:
+/*!*************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/running/api/weather.js ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10578,10 +10620,10 @@ module.exports = __webpack_require__(/*! regenerator-runtime */ 9);
 
 /***/ }),
 
-/***/ 82:
-/*!**********************************************************!*\
-  !*** E:/学习/running/js_sdk/u-charts/u-charts/u-charts.js ***!
-  \**********************************************************/
+/***/ 88:
+/*!***********************************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/running/js_sdk/u-charts/u-charts/u-charts.js ***!
+  \***********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16293,36 +16335,6 @@ if (hadRuntime) {
   }
 }
 
-
-/***/ }),
-
-/***/ 97:
-/*!*************************************!*\
-  !*** E:/学习/running/api/material.js ***!
-  \*************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.getBg = getBg;exports.changeBg = changeBg;var _request = _interopRequireDefault(__webpack_require__(/*! @/utils/request.js */ 12));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-
-function getBg(data) {
-  return (0, _request.default)({
-    method: "GET",
-    data: data,
-    url: "/material"
-    // url: "http://127.0.0.1:8000/api/user/getKey"
-  });
-}
-
-function changeBg(data) {
-  return (0, _request.default)({
-    method: "POST",
-    data: data,
-    url: "/user/changeBackground"
-    // url: "http://127.0.0.1:8000/api/user/getKey"
-  });
-}
 
 /***/ })
 

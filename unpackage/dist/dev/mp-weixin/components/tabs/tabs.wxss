@@ -24,39 +24,39 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-.nav.data-v-21da2544 {
+.title.data-v-21da2544 {
+  font-size: 24rpx;
+  font-weight: bold;
+}
+.a-nav.data-v-21da2544 {
   margin: 0 auto;
-}
-.nav-item.data-v-21da2544 {
-  display: inline-block;
-  margin: 0 16rpx;
-  text-align: center;
-  -webkit-transition: color 0.3s ease;
-  transition: color 0.3s ease;
-}
-.nav.data-v-21da2544 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  padding: 30rpx 40rpx;
   position: relative;
-  height: 50rpx;
+  background-color: #eaeaea;
 }
-.nav-item-act.data-v-21da2544 {
+.a-act.data-v-21da2544 {
   color: pink;
-  font-weight: bolder;
 }
-.nav-line.data-v-21da2544 {
+.a-nav-item.data-v-21da2544 {
+  font-size: 32rpx;
+  -webkit-transition: color 0.2s linear;
+  transition: color 0.2s linear;
+}
+.a-line.data-v-21da2544 {
   position: absolute;
+  width: 50rpx;
+  height: 8rpx;
+  -webkit-border-radius: 6rpx;
+          border-radius: 6rpx;
   bottom: 0;
-  height: 5px;
-  -webkit-border-radius: 5rpx;
-          border-radius: 5rpx;
   background-color: pink;
-  -webkit-transition: left 0.3s ease;
-  transition: left 0.3s ease;
-}
-swiper.data-v-21da2544 {
-  margin: 30rpx;
-}
-swiper-item.data-v-21da2544 {
-  background-color: skyblue;
-  color: #fff;
+  -webkit-transition: left 0.2s linear;
+  transition: left 0.2s linear;
 }
 

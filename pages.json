@@ -1,26 +1,21 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/components/index",
+			"style": {
+				"navigationBarTitleText": "组件",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/home/index"
+		},
+		{
 			"path": "pages/login/index",
 			"style": {
 				"navigationBarTitleText": "登录",
-				"enablePullDownRefresh": true,
-				"app-plus": {
-					"pullToRefresh": {
-						"support": true,
-						"color": "#BF197D",
-						"style": "circle"
-					},
-					"titleNView":{
-						"searchInput":{
-							"align":"center"
-						}
-					}
-				}
+				"enablePullDownRefresh": true
 			}
-		},
-		{
-			"path": "pages/home/index"
 		},
 		{
 			"path": "pages/map/index",
@@ -70,14 +65,6 @@
 
 		},
 		{
-			"path": "pages/test/index",
-			"style": {
-				"navigationBarTitleText": "小程序ai学习",
-				"enablePullDownRefresh": false
-			}
-
-		},
-		{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "uni-app"
@@ -86,12 +73,24 @@
 		{
 			"path": "pages/chart/index",
 			"style": {}
+		}, {
+			"path": "pages/list/index",
+			"style": {
+				"navigationBarTitleText": "列表测试",
+				"enablePullDownRefresh": true
+			}
+		}, {
+			"path": "pages/tabs-swiper/tabs-swiper",
+			"style": {
+				"navigationBarTitleText": "tabs-swiper"
+			}
+
 		}
 	    ,{
-            "path" : "pages/list/index",
+            "path" : "pages/tabs/index",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "列表测试",
+                "navigationBarTitleText": "tabs",
                 "enablePullDownRefresh": false
             }
             
@@ -101,11 +100,15 @@
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "跑步吧",
 		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8",
 		"app-plus": {
-			// 将回弹属性关掉
-			"bounce": "none"
+			"bounce": "none",
+			"pullToRefresh": {
+				"support": true,
+				"color": "#BF197D",
+				"style": "circle"
+			}
 		}
+
 
 	},
 	"permission": {
@@ -114,12 +117,11 @@
 		}
 	},
 	"condition": { //模式配置，仅开发期间生效
-	    "current": 0, //当前激活的模式（list 的索引项）
-	    "list": [{
-	            "name": "测试", //模式名称
-	            "path": "pages/list/index" //启动页面，必选
-	        }
-	    ]
+		"current": 0, //当前激活的模式（list 的索引项）
+		"list": [{
+			"name": "测试", //模式名称
+			"path": "pages/list/index" //启动页面，必选
+		}]
 	},
 	"tabBar": {
 		"color": "#7A7E83",

@@ -30,7 +30,10 @@ scroll-view.data-v-4586967a {
   top: 0;
 }
 .test.data-v-4586967a {
-  font-size: 120rpx;
+  font-size: 30rpx;
+}
+.test text.data-v-4586967a {
+  line-height: 2;
 }
 .icon.data-v-4586967a {
   font-size: 60rpx;

@@ -1,0 +1,1 @@
+<view><button type="default" data-event-opts="{{[['tap',[['goTabs_swiper',['/pages/tabs-swiper/tabs-swiper']]]]]}}" bindtap="__e">tabs-swiper(可滚动)</button><button type="default" data-event-opts="{{[['tap',[['goTabs_swiper',['/pages/tabs/index']]]]]}}" bindtap="__e">tabs(非滚动型)</button></view>

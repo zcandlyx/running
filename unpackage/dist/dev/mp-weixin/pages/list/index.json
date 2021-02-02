@@ -1,7 +1,7 @@
 {
   "navigationBarTitleText": "列表测试",
-  "enablePullDownRefresh": false,
+  "enablePullDownRefresh": true,
   "usingComponents": {
-    "tabs": "/components/tabs/tabs"
+    "share": "/components/share/share"
   }
 }

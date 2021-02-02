@@ -30,3 +30,15 @@ export function checkLogin(fn) {
 		fn();
 	}
 }
+
+export function getDomInfo(name, vm) {
+	return new Promise((reslove, reject) => {
+		const query = uni.createSelectorQuery().in(vm);
+		query
+			.select(name)
+			.fields({size:true,rect:true},data => {
+				reslove(data)
+			})
+			.exec();
+	})
+}

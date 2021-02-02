@@ -105,11 +105,11 @@
 /******/
 /******/
 /******/ 		// mini-css-extract-plugin CSS loading
-/******/ 		var cssChunks = {"colorui/components/cu-custom":1,"components/neil-modal/neil-modal":1,"components/tabs/tabs":1};
+/******/ 		var cssChunks = {"colorui/components/cu-custom":1,"components/neil-modal/neil-modal":1,"components/share/share":1,"components/tabs/tabs":1};
 /******/ 		if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
 /******/ 		else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
 /******/ 			promises.push(installedCssChunks[chunkId] = new Promise(function(resolve, reject) {
-/******/ 				var href = "" + ({"colorui/components/cu-custom":"colorui/components/cu-custom","components/neil-modal/neil-modal":"components/neil-modal/neil-modal","components/tabs/tabs":"components/tabs/tabs"}[chunkId]||chunkId) + ".wxss";
+/******/ 				var href = "" + ({"colorui/components/cu-custom":"colorui/components/cu-custom","components/neil-modal/neil-modal":"components/neil-modal/neil-modal","components/share/share":"components/share/share","components/tabs/tabs":"components/tabs/tabs"}[chunkId]||chunkId) + ".wxss";
 /******/ 				var fullhref = __webpack_require__.p + href;
 /******/ 				var existingLinkTags = document.getElementsByTagName("link");
 /******/ 				for(var i = 0; i < existingLinkTags.length; i++) {
