@@ -2,6 +2,7 @@
 	<view>
 		<button @tap="goTabs_swiper('/pages/tabs-swiper/tabs-swiper')" type="default">tabs-swiper(可滚动)</button>
 		<button type="default" @tap="goTabs_swiper('/pages/tabs/index')">tabs(非滚动型)</button>
+		<button type="default" @tap="goTabs_swiper('/pages/textShrink/index/index')">textShrink(文本收缩)</button>
 	</view>
 </template>
 

@@ -48,8 +48,7 @@
 }
 .wrap .module {
   width: 95%;
-  -webkit-border-radius: 10rpx;
-          border-radius: 10rpx;
+  border-radius: 10rpx;
   margin: 38vh auto 0;
   padding: 20rpx;
   background-color: rgba(255, 255, 255, 0.8);
@@ -77,8 +76,7 @@
 .wrap .avatar-box {
   width: 150rpx;
   height: 150rpx;
-  -webkit-border-radius: 50%;
-          border-radius: 50%;
+  border-radius: 50%;
   overflow: hidden;
   margin: 20rpx auto;
 }
@@ -125,8 +123,7 @@
   line-height: 1.5;
   text-align: center;
   font-size: bolder;
-  -webkit-border-radius: 10rpx;
-          border-radius: 10rpx;
+  border-radius: 10rpx;
   margin: 35rpx auto 0;
 }
 .wrap button {

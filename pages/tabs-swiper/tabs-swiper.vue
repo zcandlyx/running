@@ -10,7 +10,7 @@
 		</scroll-view>
 		<view class="swiper">
 			<swiper :current="swiperIndex" :duration="300" class="swiper-1" easing-function="linear" @change="swiperChange">
-				<swiper-item v-for="(item, index) in list" :key="index + 'asdf'">
+				<swiper-item v-for="(item, index) in list" :key="index">
 					<scroll-view
 						:lower-threshold="80"
 						:refresher-triggered="refreStatus"

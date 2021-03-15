@@ -63,8 +63,7 @@
   width: 100%;
   padding: 0 60rpx;
   border: 2rpx solid #eee;
-  -webkit-border-radius: 6rpx;
-          border-radius: 6rpx;
+  border-radius: 6rpx;
   background-color: #fff;
 }
 .transpond.data-v-18393c44::after {

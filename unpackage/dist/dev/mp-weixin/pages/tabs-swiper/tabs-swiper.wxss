@@ -48,8 +48,7 @@
   position: absolute;
   bottom: 0;
   height: 10rpx;
-  -webkit-border-radius: 10rpx;
-          border-radius: 10rpx;
+  border-radius: 10rpx;
   background-color: pink;
   -webkit-transition: left 0.3s ease;
   transition: left 0.3s ease;

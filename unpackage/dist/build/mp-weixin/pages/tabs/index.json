@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "tabs",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "tabs": "/components/tabs/tabs"
+  }
+}

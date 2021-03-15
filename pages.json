@@ -85,12 +85,26 @@
 				"navigationBarTitleText": "tabs-swiper"
 			}
 
+		}, {
+			"path": "pages/tabs/index",
+			"style": {
+				"navigationBarTitleText": "tabs",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/textShrink/index/index",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
 		}
 	    ,{
-            "path" : "pages/tabs/index",
+            "path" : "components/textShrink/textShrink",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "tabs",
+                "navigationBarTitleText": "",
                 "enablePullDownRefresh": false
             }
             
@@ -108,8 +122,6 @@
 				"style": "circle"
 			}
 		}
-
-
 	},
 	"permission": {
 		"scope.userLocation": {

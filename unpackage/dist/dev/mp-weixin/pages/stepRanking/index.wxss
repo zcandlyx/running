@@ -33,8 +33,7 @@
   color: gray;
   background-color: #e5e5e5;
   opacity: 0.4;
-  -webkit-border-radius: 40rpx 0 0 40rpx;
-          border-radius: 40rpx 0 0 40rpx;
+  border-radius: 40rpx 0 0 40rpx;
 }
 scroll-view.data-v-464884a4 {
   height: 100vh;
@@ -98,8 +97,7 @@ scroll-view.data-v-464884a4 {
 .rank-item image.data-v-464884a4 {
   width: 100rpx;
   height: 100rpx;
-  -webkit-border-radius: 50%;
-          border-radius: 50%;
+  border-radius: 50%;
 }
 .indexToast.data-v-464884a4 {
   position: fixed;
@@ -109,8 +107,7 @@ scroll-view.data-v-464884a4 {
   background: rgba(0, 0, 0, 0.5);
   width: 100rpx;
   height: 100rpx;
-  -webkit-border-radius: 10rpx;
-          border-radius: 10rpx;
+  border-radius: 10rpx;
   margin: auto;
   color: #fff;
   line-height: 100rpx;
@@ -141,10 +138,8 @@ scroll-view.data-v-464884a4 {
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
           flex-direction: column;
-  -webkit-box-shadow: 0 0 20rpx rgba(0, 0, 0, 0.1);
-          box-shadow: 0 0 20rpx rgba(0, 0, 0, 0.1);
-  -webkit-border-radius: 10rpx;
-          border-radius: 10rpx;
+  box-shadow: 0 0 20rpx rgba(0, 0, 0, 0.1);
+  border-radius: 10rpx;
 }
 .indexBar-item.data-v-464884a4 {
   -webkit-box-flex: 1;
@@ -174,8 +169,7 @@ scroll-view.data-v-464884a4 {
   background-color: #fff;
   text-align: center;
   line-height: 80rpx;
-  -webkit-border-radius: 50%;
-          border-radius: 50%;
+  border-radius: 50%;
   -webkit-animation: slidein-data-v-464884a4 2s ease infinite;
           animation: slidein-data-v-464884a4 2s ease infinite;
 }

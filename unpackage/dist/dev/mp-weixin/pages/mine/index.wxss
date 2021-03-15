@@ -28,8 +28,7 @@
   width: 100%;
   height: 100%;
   border: 1rpx solid #8dc63f;
-  -webkit-border-radius: 50%;
-          border-radius: 50%;
+  border-radius: 50%;
   padding: 0;
   margin: 0;
 }
@@ -39,8 +38,7 @@
   margin-left: 30%;
   line-height: 74rpx;
   border: 1rpx solid #fff;
-  -webkit-border-radius: 10rpx;
-          border-radius: 10rpx;
+  border-radius: 10rpx;
   background: transparent;
   color: #ffffff;
 }
@@ -69,8 +67,7 @@
 .userAvatar.data-v-4bd6864f {
   width: 152rpx;
   height: 152rpx;
-  -webkit-border-radius: 50%;
-          border-radius: 50%;
+  border-radius: 50%;
   overflow: hidden;
   margin: 50rpx calc(50% - 75rpx) 10rpx calc(50% - 75rpx);
   background: transparent;
@@ -115,8 +112,7 @@
   -webkit-transform: translate(-50%);
           transform: translate(-50%);
   margin-left: 50%;
-  -webkit-border-radius: 150rpx;
-          border-radius: 150rpx;
+  border-radius: 150rpx;
   width: 150rpx;
   height: 150rpx;
 }
@@ -237,8 +233,7 @@
 .info image.data-v-4bd6864f {
   width: 94rpx;
   height: 94rpx;
-  -webkit-border-radius: 50%;
-          border-radius: 50%;
+  border-radius: 50%;
 }
 .info .name.data-v-4bd6864f {
   margin-left: 29rpx;
