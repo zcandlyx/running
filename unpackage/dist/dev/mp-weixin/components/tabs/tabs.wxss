@@ -58,4 +58,7 @@
   -webkit-transition: left 0.2s linear;
   transition: left 0.2s linear;
 }
+.a-nav-less.data-v-21da2544 {
+  padding: 30rpx 120rpx;
+}
 

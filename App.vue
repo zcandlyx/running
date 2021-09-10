@@ -127,7 +127,6 @@ export default {
 @import 'colorui/icon.css';
 @import 'static/icon/iconfont.css';
 @import 'colorui/animation.css';
-@import 'animate.css';
 @import 'static/style/theme.scss';
 page {
 	height: 100%;

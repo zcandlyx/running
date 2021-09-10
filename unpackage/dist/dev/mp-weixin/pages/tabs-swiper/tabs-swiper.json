@@ -1,4 +1,5 @@
 {
   "navigationBarTitleText": "tabs-swiper",
+  "enablePullDownRefresh": false,
   "usingComponents": {}
 }

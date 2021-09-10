@@ -82,7 +82,8 @@
 		}, {
 			"path": "pages/tabs-swiper/tabs-swiper",
 			"style": {
-				"navigationBarTitleText": "tabs-swiper"
+				"navigationBarTitleText": "tabs-swiper",
+				"enablePullDownRefresh": false
 			}
 
 		}, {
@@ -99,17 +100,15 @@
 				"enablePullDownRefresh": false
 			}
 
+		}, {
+			"path": "components/textShrink/textShrink",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
 		}
-	    ,{
-            "path" : "components/textShrink/textShrink",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "跑步吧",

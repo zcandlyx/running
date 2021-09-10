@@ -11,27 +11,25 @@
   "appid": "wx6b49ede83038818e",
   "projectname": "running",
   "condition": {
-    "plugin": {
+    "search": {
+      "current": -1,
+      "list": []
+    },
+    "conversation": {
+      "current": -1,
       "list": []
     },
     "game": {
-      "list": []
-    },
-    "gamePlugin": {
+      "current": -1,
       "list": []
     },
     "miniprogram": {
+      "current": 0,
       "list": [
         {
-          "id": 0,
           "name": "测试",
-          "pathName": "pages/list/index",
-          "query": ""
-        },
-        {
-          "name": "pages/textShrink/index/index",
-          "pathName": "pages/textShrink/index/index",
-          "scene": null
+          "id": 0,
+          "pathName": "pages/list/index"
         }
       ]
     }
