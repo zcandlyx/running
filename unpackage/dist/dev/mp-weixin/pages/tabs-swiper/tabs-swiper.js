@@ -160,9 +160,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 var _default =
 {
   data: function data() {
@@ -185,8 +182,7 @@ var _default =
       { title: '测试-4', content: ['测试-4-1', '测试-4-2', '测试-4-3', '测试-4-4', '测试-4-5'] },
       { title: '测试-5', content: ['测试-5-1', '测试-5-2', '测试-5-3', '测试-5-4', '测试-5-5'] }],
 
-      refreStatus: false,
-      swiperHeight: '0px' };
+      refreStatus: false };
 
   },
   computed: {
@@ -197,82 +193,61 @@ var _default =
   mounted: function mounted() {
     this.init();
   },
-  // 上拉加载功能
-  onReachBottom: function onReachBottom() {var _this = this;
-    uni.showToast({
-      icon: 'none',
-      title: "\u6B64\u65F6\u4E3A".concat(this.list[this.swiperIndex].title, "\u89E6\u5E95") });
-
-    setTimeout(function () {
-      _this.getData();
-    }, 500);
-  },
-  // 下拉刷新功能(只做提示)
-  onPullDownRefresh: function onPullDownRefresh() {
-    uni.showToast({
-      icon: 'none',
-      title: "\u6B64\u65F6\u4E3A".concat(this.list[this.swiperIndex].title, "\u4E0B\u62C9\u5237\u65B0") });
-
-    setTimeout(function () {
-      uni.stopPullDownRefresh();
-    }, 1000);
-  },
   methods: {
     // 获取dom信息
-    init: function init() {var _this2 = this;
+    init: function init() {var _this = this;
       var query = uni.createSelectorQuery().in(this);
       query.select('.uni-nav').fields({ rect: true, size: true }, function (res) {
-        _this2.parentLeft = res.left;
-        _this2.componentWidth = res.width;
+        _this.parentLeft = res.left;
+        _this.componentWidth = res.width;
         console.log('res==>', res);
       });
       query.selectAll('.nav-item').fields({ rect: true, size: true }, function (data) {
         data.forEach(function (item, index) {
           if (index == 0) {
-            _this2.navItemWidth = item.width;
-            _this2.navItemLeft = item.left;
+            _this.navItemWidth = item.width;
+            _this.navItemLeft = item.left;
           }
-          _this2.navInfos.push({ width: item.width, left: item.left });
+          _this.navInfos.push({ width: item.width, left: item.left });
         });
       });
       query.exec();
     },
-
-
-    // swiper的index变动
-    swiperChange: function swiperChange(e) {
-      this.swiperIndex = e.detail.current;
-      this.scrollDom();
-      this.$emit('currentIndex', this.swiperIndex);
-      this.getSwiperHeight();
-      // 切换swiper时需要重新获取 当前展示 swiper 的高度
-      uni.pageScrollTo({
-        scrollTop: 0 });
-
-    },
-
     // 点击导航切换swiper
     taggleNav: function taggleNav(val) {
       this.swiperIndex = val;
     },
-
     // 滚动tabs以及移动下划线
-    scrollDom: function scrollDom() {var _this3 = this;
+    scrollDom: function scrollDom() {var _this2 = this;
       var info = this.navInfos[this.swiperIndex];
       var offsetLeft = info.left - this.parentLeft;
       var scrollLeft = offsetLeft - (this.componentWidth - info.width) / 2;
       this.scrollToLeft = scrollLeft < 0 ? 0 : scrollLeft;
       this.navItemLeft = this.navInfos[this.swiperIndex].left;
       setTimeout(function () {
-        _this3.navItemWidth = info.width;
+        _this2.navItemWidth = info.width;
       }, 50);
     },
-
+    // swiper的index变动
+    swiperChange: function swiperChange(e) {
+      this.swiperIndex = e.detail.current;
+      this.scrollDom();
+      this.$emit('currentIndex', this.swiperIndex);
+    },
     // tabs-scrollview触底
     handleScroll: function handleScroll(e) {
       this.scrollDom();
     },
+    // swiper-ScrollLower触底
+    swiperScrollLower: function swiperScrollLower() {var _this3 = this;
+      uni.showToast({
+        icon: 'none',
+        title: "\u6B64\u65F6\u4E3A".concat(this.list[this.swiperIndex].title, "\u89E6\u5E95") });
 
+      setTimeout(function () {
+        _this3.getData();
+      }, 500);
+    },
     // 生成列表数据
     getData: function getData() {var _this4 = this;
       uni.showLoading({
@@ -285,25 +260,25 @@ var _default =
           title);
         }
         uni.hideLoading();
-
-        //放在这里面是因为 dom 渲染完成后才能获取到正确高度
-        _this4.$nextTick(function () {
-          _this4.getSwiperHeight();
-        });
       }, 1000);
-
+      console.log(this.list[this.swiperIndex]);
     },
+    // 下拉事件
+    handleRefre: function handleRefre() {var _this5 = this;
+      this.refreStatus = true;
+      uni.showLoading({
+        title: '下拉加载中' });
 
-    // 每次获取数据后需要获取swiper正常的高度, swiper默认高度无法使用
-    getSwiperHeight: function getSwiperHeight() {var _this5 = this;
-      var query = uni.createSelectorQuery().in(this);
-      query.select('.swiper-item-module').fields({ rect: true, size: true }, function (res) {
-        console.log('res==>', res.height);
-        _this5.swiperHeight = res.height + 'px';
-
-      });
-      query.exec();
-
+      setTimeout(function () {
+        _this5.list[_this5.swiperIndex].content = [];
+        for (var i = 0; i < 5; i++) {
+          _this5.list[_this5.swiperIndex].content.push([_this5.list[_this5.swiperIndex].title + '下拉-' + i]);
+        }
+        uni.hideLoading();
+      }, 1000);
+      setTimeout(function () {
+        _this5.refreStatus = false;
+      }, 1000);
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

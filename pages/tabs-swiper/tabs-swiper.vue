@@ -1,30 +1,27 @@
 <template>
-	<view class="wrapper">
-		<view class="nav-box">
-			<scroll-view class="nav-scroll" :enable-flex="true" scroll-with-animation :throttle="false"
-				:scroll-left="scrollToLeft" scroll-x @scroll="handleScroll">
-				<view class="nav uni-nav">
-					<view class="nav-item" :class="swiperIndex == index ? 'nav-item-act' : ''" :key="index"
-						v-for="(item, index) in list" @click="taggleNav(index)">
-						{{ item.title }}
-					</view>
-					<view class="nav-line" :style="style"></view>
+	<view>
+		<scroll-view class="nav-scroll" :enable-flex="true" scroll-with-animation :throttle="false"
+			:scroll-left="scrollToLeft" scroll-x @scroll="handleScroll">
+			<view class="nav uni-nav">
+				<view class="nav-item" :class="swiperIndex == index ? 'nav-item-act' : ''" :key="index"
+					v-for="(item, index) in list" @click="taggleNav(index)">
+					{{ item.title }}
 				</view>
-			</scroll-view>
-		</view>
-		<view class="fill-fixed"></view>
-
-
+				<view class="nav-line" :style="style"></view>
+			</view>
+		</scroll-view>
 		<view class="swiper">
-			<swiper :style="{height:swiperHeight}" :current="swiperIndex" :duration="300" class="swiper-1"
-				easing-function="linear" @change="swiperChange">
+			<swiper :current="swiperIndex" :duration="300" class="swiper-1" easing-function="linear"
+				@change="swiperChange">
 				<swiper-item v-for="(item, index) in list" :key="index">
-
-					<view :class="swiperIndex===index?'swiper-item-module':''">
-						<view class="swiper-item-list" v-for="sub_item in item.content" :key="sub_item">
-							{{ sub_item }}
+					<scroll-view :lower-threshold="80" :refresher-triggered="refreStatus"
+						@refresherrefresh="handleRefre" :refresher-enabled="true" class="swiper-scroll" scroll-y="true"
+						@scrolltolower="swiperScrollLower">
+						<view>
+							<view class="swiper-item-list" v-for="sub_item in item.content" :key="sub_item">
+								{{ sub_item }}</view>
 						</view>
-					</view>
+					</scroll-view>
 				</swiper-item>
 			</swiper>
 		</view>
@@ -53,8 +50,7 @@
 					{ title: '测试-4', content: ['测试-4-1', '测试-4-2', '测试-4-3', '测试-4-4', '测试-4-5'] },
 					{ title: '测试-5', content: ['测试-5-1', '测试-5-2', '测试-5-3', '测试-5-4', '测试-5-5'] }
 				],
-				refreStatus: false,
-				swiperHeight: '0px'
+				refreStatus: false
 			};
 		},
 		computed: {
@@ -64,26 +60,6 @@
 		},
 		mounted() {
 			this.init();
-		},
-		// 上拉加载功能
-		onReachBottom() {
-			uni.showToast({
-				icon: 'none',
-				title: `此时为${this.list[this.swiperIndex].title}触底`
-			});
-			setTimeout(() => {
-				this.getData();
-			}, 500);
-		},
-		// 下拉刷新功能(只做提示)
-		onPullDownRefresh() {
-			uni.showToast({
-				icon: 'none',
-				title: `此时为${this.list[this.swiperIndex].title}下拉刷新`
-			});
-			setTimeout(() => {
-				uni.stopPullDownRefresh()
-			}, 1000)
 		},
 		methods: {
 			// 获取dom信息
@@ -105,25 +81,10 @@
 				});
 				query.exec();
 			},
-
-
-			// swiper的index变动
-			swiperChange(e) {
-				this.swiperIndex = e.detail.current;
-				this.scrollDom();
-				this.$emit('currentIndex', this.swiperIndex);
-				this.getSwiperHeight()
-				// 切换swiper时需要重新获取 当前展示 swiper 的高度
-				uni.pageScrollTo({
-					scrollTop: 0
-				})
-			},
-
 			// 点击导航切换swiper
 			taggleNav(val) {
 				this.swiperIndex = val;
 			},
-
 			// 滚动tabs以及移动下划线
 			scrollDom() {
 				let info = this.navInfos[this.swiperIndex];
@@ -135,12 +96,26 @@
 					this.navItemWidth = info.width;
 				}, 50);
 			},
-
+			// swiper的index变动
+			swiperChange(e) {
+				this.swiperIndex = e.detail.current;
+				this.scrollDom();
+				this.$emit('currentIndex', this.swiperIndex);
+			},
 			// tabs-scrollview触底
 			handleScroll(e) {
 				this.scrollDom();
 			},
-
+			// swiper-ScrollLower触底
+			swiperScrollLower() {
+				uni.showToast({
+					icon: 'none',
+					title: `此时为${this.list[this.swiperIndex].title}触底`
+				});
+				setTimeout(() => {
+					this.getData();
+				}, 500);
+			},
 			// 生成列表数据
 			getData() {
 				uni.showLoading({
@@ -150,70 +125,34 @@
 					for (let index = 0; index < 10; index++) {
 						let arr = this.list[this.swiperIndex].content;
 						this.$set(arr, arr.length, Math.random() + '-' + index + this.list[this.swiperIndex]
-							.title);
+						.title);
 					}
 					uni.hideLoading();
-
-					//放在这里面是因为 dom 渲染完成后才能获取到正确高度
-					this.$nextTick(() => {
-						this.getSwiperHeight()
-					})
 				}, 1000);
-
+				console.log(this.list[this.swiperIndex]);
 			},
-
-			// 每次获取数据后需要获取swiper正常的高度, swiper默认高度无法使用
-			getSwiperHeight() {
-				const query = uni.createSelectorQuery().in(this);
-				query.select('.swiper-item-module').fields({ rect: true, size: true }, res => {
-					console.log('res==>', res.height);
-					this.swiperHeight = res.height + 'px'
-
+			// 下拉事件
+			handleRefre() {
+				this.refreStatus = true;
+				uni.showLoading({
+					title: '下拉加载中'
 				});
-				query.exec();
-
+				setTimeout(() => {
+					this.list[this.swiperIndex].content = [];
+					for (var i = 0; i < 5; i++) {
+						this.list[this.swiperIndex].content.push([this.list[this.swiperIndex].title + '下拉-' + i]);
+					}
+					uni.hideLoading();
+				}, 1000);
+				setTimeout(() => {
+					this.refreStatus = false;
+				}, 1000);
 			}
 		}
 	};
 </script>
 
 <style lang="scss" scoped>
-	.wrapper {
-		overflow-y: scroll;
-	}
-
-	.loading-pull {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: 10px 0;
-
-		svg {
-			animation: myRotate linear infinite .5s;
-			transform-origin: 50% 50%;
-		}
-
-
-		text {
-			margin: 0 8px;
-		}
-	}
-
-	@keyframes myRotate {
-		0% {
-			-webkit-transform: rotate(0deg);
-		}
-
-		50% {
-			-webkit-transform: rotate(180deg);
-		}
-
-		100% {
-			-webkit-transform: rotate(360deg);
-		}
-	}
-
-
 	.nav-item {
 		display: inline-block;
 		margin: 0 16upx;
@@ -221,19 +160,7 @@
 		transition: color 0.3s ease;
 	}
 
-	.fill-fixed {
-		height: 40px;
-	}
-
-	.nav-box {
-		position: fixed;
-		width: 100%;
-		background-color: #fff;
-		z-index: 9;
-	}
-
 	.nav {
-
 		white-space: nowrap;
 		position: relative;
 		height: 80upx;
@@ -270,8 +197,7 @@
 	}
 
 	swiper {
-		min-height: 100vh;
-		overflow-y: auto;
+		height: calc(100vh - 80upx);
 	}
 
 	swiper-item {
@@ -280,7 +206,6 @@
 		position: relative;
 		background-color: skyblue;
 		color: #fff;
-		height: auto !important;
 	}
 
 	.swiper-item {
@@ -291,10 +216,9 @@
 		height: 400upx;
 		border-bottom: 2upx solid pink;
 		line-height: 400upx;
-		background-color: red;
 	}
 
-	// .swiper-scroll {
-	// 	height: 100%;
-	// }
+	.swiper-scroll {
+		height: 100%;
+	}
 </style>
